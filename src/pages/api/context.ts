@@ -1,12 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { CohereRerank } from 'llamaindex'
+import { CohereRerank } from 'llamaindex';
 import { getDataSource } from '../engine';
-import { extractText } from '@llamaindex/core/utils';
-import {
-  PromptTemplate,
-  type ContextSystemPrompt,
-} from '@llamaindex/core/prompts';
-import { createMessageContent } from '@llamaindex/core/response-synthesizers';
 import { initSettings } from '../engine/settings';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
@@ -38,10 +32,18 @@ export default async function handler(
 
     const [index, dt] = await Promise.all([
       getDataSource(userId),
-      supabseAuthClient.supabase.from('documents').select('configs').eq('user_id', userId).single(),
+      supabseAuthClient.supabase
+        .from('documents')
+        .select('configs')
+        .eq('user_id', userId)
+        .single(),
     ]);
 
-    const { topK, useReranking, rerankingResults } = dt.data?.configs || { topK: 2, useReranking: true, rerankingResults: 2 };
+    const { topK, useReranking, rerankingResults } = dt.data?.configs || {
+      topK: 2,
+      useReranking: true,
+      rerankingResults: 2,
+    };
     console.log('[context] topK: ', topK, useReranking, rerankingResults);
     if (!index) {
       throw new Error(
@@ -49,32 +51,32 @@ export default async function handler(
       );
     }
 
-
     const retriever = index.asRetriever();
 
     const queryEngine = index.asQueryEngine({
       similarityTopK: topK,
       retriever,
-      nodePostprocessors: []
+      nodePostprocessors: [],
     });
 
     if (useReranking) {
       const reranker = new CohereRerank({
         apiKey: process.env.COHERE_API_KEY || '',
         topN: rerankingResults,
-      })
+      });
       queryEngine.nodePostprocessors.push(reranker);
     }
 
     const response = await queryEngine.query({
-      query
+      query,
     });
 
     res.status(200).json({
       message: `For improving the answer to my last question use the following context:
 ---------------------
 ${response.message.content}
----------------------` });
+---------------------`,
+    });
   } catch (error) {
     console.error('[context] Error:', error);
     return res.status(500).json({

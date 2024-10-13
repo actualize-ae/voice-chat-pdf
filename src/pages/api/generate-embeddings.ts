@@ -1,49 +1,55 @@
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import { generateEmbeddings } from '../engine/generate';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { getCookie } from 'cookies-next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method Not Allowed' });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
+
+  const { useReranking, topK, rerankingResults } = req.body;
+
+  try {
+    const userId = getCookie('user_id', { req, res });
+    if (!userId) {
+      return res
+        .status(401)
+        .json({ success: false, message: 'Invalid credentials' });
     }
 
-    const { useReranking, topK, rerankingResults } = req.body;
+    // Generate embeddings
+    await generateEmbeddings({
+      userId,
+      useReRanking: useReranking,
+      topK,
+      topN: rerankingResults,
+    });
 
+    const { error } = await supabseAuthClient.supabase
+      .from('documents')
+      .update({
+        configs: {
+          useReranking,
+          topK,
+          rerankingResults,
+        },
+      })
+      .eq('user_id', userId);
 
-
-    try {
-        const userId = getCookie('user_id', { req, res });
-        if (!userId) {
-            return res.status(401).json({ success: false, message: 'Invalid credentials' });
-        }
-
-
-        // Generate embeddings
-        await generateEmbeddings({
-            userId,
-            useReRanking: useReranking,
-            topK,
-            topN: rerankingResults
-        });
-
-        const { error } = await supabseAuthClient.supabase.from('documents').update({
-            configs: {
-                useReranking,
-                topK,
-                rerankingResults
-            }
-        }).eq('user_id', userId);
-
-        if (error) {
-            console.error('Error updating document:', error);
-            return res.status(422).json({ message: 'Error updating document' });
-        }
-
-        return res.status(200).json({ message: 'Embeddings generated successfully' });
-    } catch (error) {
-        console.error('Error generating embeddings:', error);
-        return res.status(500).json({ message: 'Internal Server Error' });
+    if (error) {
+      console.error('Error updating document:', error);
+      return res.status(422).json({ message: 'Error updating document' });
     }
+
+    return res
+      .status(200)
+      .json({ message: 'Embeddings generated successfully' });
+  } catch (error) {
+    console.error('Error generating embeddings:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
 }

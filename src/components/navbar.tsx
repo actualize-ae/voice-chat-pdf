@@ -1,15 +1,15 @@
-import Link from "next/link"
-import { Home, Upload, PlayCircle, CreativeCommons, Menu } from "lucide-react"
-import { useState } from "react"
+import Link from 'next/link';
+import { Home, Upload, PlayCircle, CreativeCommons, Menu } from 'lucide-react';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button"
-import { supabseAuthClient } from "@/lib/supabase/auth"
-import { useRouter } from "next/router"
-import { signOut } from "@/lib/api/utils"
+import { Button } from '@/components/ui/button';
+import { supabseAuthClient } from '@/lib/supabase/auth';
+import { useRouter } from 'next/router';
+import { signOut } from '@/lib/api/utils';
 
 export function NavbarComponent() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <nav className="bg-white shadow-sm">
@@ -18,7 +18,9 @@ export function NavbarComponent() {
           <div className="flex">
             <Link href="/" className="flex-shrink-0 flex items-center">
               <Home className="h-8 w-8 text-rose-500" />
-              <span className="ml-2 text-xl font-semibold text-gray-800">DocTalk</span>
+              <span className="ml-2 text-xl font-semibold text-gray-800">
+                DocTalk
+              </span>
             </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
@@ -45,10 +47,14 @@ export function NavbarComponent() {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <Button onClick={async () => {
-              await signOut();
-              router.push('/signin')
-            }} variant="outline" className="text-rose-500 border-rose-500 hover:bg-rose-50">
+            <Button
+              onClick={async () => {
+                await signOut();
+                router.push('/signin');
+              }}
+              variant="outline"
+              className="text-rose-500 border-rose-500 hover:bg-rose-50"
+            >
               Sign Out
             </Button>
           </div>
@@ -85,7 +91,10 @@ export function NavbarComponent() {
           </div>
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="mt-3 space-y-1">
-              <Button variant="outline" className="w-full justify-start text-rose-500 border-rose-500 hover:bg-rose-50">
+              <Button
+                variant="outline"
+                className="w-full justify-start text-rose-500 border-rose-500 hover:bg-rose-50"
+              >
                 Sign In
               </Button>
             </div>
@@ -93,5 +102,5 @@ export function NavbarComponent() {
         </div>
       )}
     </nav>
-  )
+  );
 }

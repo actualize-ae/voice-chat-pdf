@@ -5,9 +5,9 @@ import { getDocuments } from './loader';
 
 export async function getDataSource(userId: string) {
   const storageContext = await storageContextFromDefaults({
-    vectorStore: vectorStore(userId)
+    vectorStore: vectorStore(userId),
   });
-  const documents = await getDocuments(userId)
+  const documents = await getDocuments(userId);
   return await VectorStoreIndex.fromDocuments(documents, {
     storageContext,
   });

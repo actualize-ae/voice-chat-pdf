@@ -6,7 +6,6 @@ import { getDocuments } from './loader';
 import { initSettings } from './settings';
 import { vectorStore } from './qdrant';
 
-
 // Load environment variables from local .env file
 dotenv.config();
 
@@ -21,12 +20,12 @@ async function generateDatasource({
   userId,
   useReRanking,
   topK,
-  topN
+  topN,
 }: {
-  userId: string,
-  useReRanking: boolean,
-  topK: number,
-  topN: number
+  userId: string;
+  useReRanking: boolean;
+  topK: number;
+  topN: number;
 }) {
   // Split documents, create embeddings and store them in the storage context
   const ms = await getRuntime(async () => {
@@ -36,11 +35,9 @@ async function generateDatasource({
       });
       const documents = await getDocuments(userId);
 
-
       const index = await VectorStoreIndex.fromDocuments(documents, {
-        storageContext
+        storageContext,
       });
-
     } catch (e) {
       console.error('Error generating storage context:', e);
     }
@@ -54,17 +51,16 @@ export async function generateEmbeddings({
   topN,
   userId,
 }: {
-  userId: string,
-  useReRanking: boolean,
-  topK: number,
-  topN: number
+  userId: string;
+  useReRanking: boolean;
+  topK: number;
+  topN: number;
 }) {
-  initSettings()
+  initSettings();
   generateDatasource({
     useReRanking,
     topK,
     topN,
-    userId
-  })
-
+    userId,
+  });
 }

@@ -1,27 +1,27 @@
-import Link from "next/link"
-import { Home } from "lucide-react"
+import Link from 'next/link';
+import { Home } from 'lucide-react';
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { supabseAuthClient } from "@/lib/supabase/auth"
-import { FormEvent, FormEventHandler } from "react"
-import { useRouter } from "next/router"
-import { signUpWithEmailPassword } from "@/lib/api/utils"
-import { Toaster } from "react-hot-toast"
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { supabseAuthClient } from '@/lib/supabase/auth';
+import { FormEvent, FormEventHandler } from 'react';
+import { useRouter } from 'next/router';
+import { signUpWithEmailPassword } from '@/lib/api/utils';
+import { Toaster } from 'react-hot-toast';
 
 export default function SignUpPage() {
-  const router = useRouter()
+  const router = useRouter();
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form = new FormData(e.currentTarget)
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
     await signUpWithEmailPassword({
-        email: form.get('email') as string,
-        password: form.get('password') as string,
-    })
-    router.push('/')
-  }
+      email: form.get('email') as string,
+      password: form.get('password') as string,
+    });
+    router.push('/');
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-pink-50">
       <Toaster position="top-right" reverseOrder={false} />
@@ -29,21 +29,52 @@ export default function SignUpPage() {
         <div className="flex items-center justify-center mb-8">
           <Home className="h-8 w-8 text-rose-500" />
         </div>
-        <h1 className="text-2xl font-semibold text-center mb-6 text-gray-800">Sign up for DocTalk</h1>
+        <h1 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+          Sign up for DocTalk
+        </h1>
         <form onSubmit={handleSignup} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-gray-700">Email</Label>
-            <Input name="email" id="email" placeholder="Enter your email" type="email" required className="bg-white/50" />
+            <Label htmlFor="email" className="text-gray-700">
+              Email
+            </Label>
+            <Input
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              type="email"
+              required
+              className="bg-white/50"
+            />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-gray-700">Password</Label>
-            <Input name="password" id="password" placeholder="Create a password" type="password" required className="bg-white/50" />
+            <Label htmlFor="password" className="text-gray-700">
+              Password
+            </Label>
+            <Input
+              name="password"
+              id="password"
+              placeholder="Create a password"
+              type="password"
+              required
+              className="bg-white/50"
+            />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="confirm-password" className="text-gray-700">Confirm Password</Label>
-            <Input id="confirm-password" placeholder="Confirm your password" type="password" required className="bg-white/50" />
+            <Label htmlFor="confirm-password" className="text-gray-700">
+              Confirm Password
+            </Label>
+            <Input
+              id="confirm-password"
+              placeholder="Confirm your password"
+              type="password"
+              required
+              className="bg-white/50"
+            />
           </div>
-          <Button type="submit" className="w-full bg-rose-500 hover:bg-rose-600 text-white transition-colors duration-300">
+          <Button
+            type="submit"
+            className="w-full bg-rose-500 hover:bg-rose-600 text-white transition-colors duration-300"
+          >
             Sign up
           </Button>
         </form>
@@ -83,12 +114,12 @@ export default function SignUpPage() {
           </Button>
         </div> */}
         <p className="mt-6 text-center text-sm text-gray-600">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link href="/signin" className="text-rose-500 hover:underline">
             Log in
           </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }

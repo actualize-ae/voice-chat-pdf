@@ -1,8 +1,8 @@
-This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/) 
+This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/)
 
 # Voice Chat with PDFs
 
-This is a an example based on the [openai/openai-realtime-console](https://github.com/openai/openai-realtime-console), 
+This is a an example based on the [openai/openai-realtime-console](https://github.com/openai/openai-realtime-console),
 extending it with a simple RAG system using [LlamaIndexTS](https://ts.llamaindex.ai).
 
 ## Prerequisites
@@ -43,7 +43,6 @@ You can then choose between **manual** (Push-to-talk) and **vad** (Voice Activit
 conversation modes, and switch between them at any time.
 
 You can freely interrupt the model at any time in push-to-talk or VAD mode.
-
 
 ## Learn More
 
