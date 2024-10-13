@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MetadataMode } from 'llamaindex';
+import { CohereRerank } from 'llamaindex'
 import { getDataSource } from '../engine';
 import { extractText } from '@llamaindex/core/utils';
 import {
@@ -48,31 +48,33 @@ export default async function handler(
         `StorageContext is empty - call 'npm run generate' to generate the storage first`,
       );
     }
-    const retriever = index.asRetriever({
-      similarityTopK: topK
+
+
+    const retriever = index.asRetriever();
+
+    const queryEngine = index.asQueryEngine({
+      similarityTopK: topK,
+      retriever,
+      nodePostprocessors: []
     });
 
-    const nodes = await retriever.retrieve({
-      query: query
-    });
-    console.log(`[context] Retrieved ${nodes.length} nodes`);
+    if (useReranking) {
+      const reranker = new CohereRerank({
+        apiKey: process.env.COHERE_API_KEY || '',
+        topN: rerankingResults,
+      })
+      queryEngine.nodePostprocessors.push(reranker);
+    }
 
-    const contextSystemPrompt: ContextSystemPrompt = new PromptTemplate({
-      templateVars: ['context'],
-      template: `For improving the answer to my last question use the following context:
+    const response = await queryEngine.query({
+      query
+    });
+
+    res.status(200).json({
+      message: `For improving the answer to my last question use the following context:
 ---------------------
-{context}
----------------------`,
-    });
-
-    const content = await createMessageContent(
-      contextSystemPrompt as any,
-      nodes.map((r) => r.node),
-      undefined,
-      MetadataMode.LLM,
-    );
-
-    res.status(200).json({ message: extractText(content) });
+${response.message.content}
+---------------------` });
   } catch (error) {
     console.error('[context] Error:', error);
     return res.status(500).json({
