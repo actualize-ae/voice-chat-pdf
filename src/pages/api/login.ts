@@ -9,6 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const data = await supabseAuthClient.signIn(email, password);
             setCookie('access_token', data.session?.access_token, { req, res, maxAge: 60 * 60 * 24 * 30 });
+            const user = await supabseAuthClient.supabaseAuth.getUser(data.session?.access_token);
+            setCookie('user_id', user.data.user?.id, { req, res, maxAge: 60 * 60 * 24 * 30 });
             return res.status(200).json({ data, message: 'Login successful' });
         } catch (e) {
             res.status(401).json({ success: false, message: 'Invalid credentials' });

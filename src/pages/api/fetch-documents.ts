@@ -8,13 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        const token = getCookie('access_token', { req, res });
-        const user = await supabseAuthClient.supabaseAuth.getUser(token);
-        if (!user.data.user) {
+        const userId = getCookie('user_id', { req, res });
+        if (!userId) {
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
-        const { data, error } = await supabseAuthClient.supabase.from('documents').select().eq('user_id', user.data.user.id).select('documents');
+        const { data, error } = await supabseAuthClient.supabase.from('documents').select().eq('user_id', userId).select('documents');
         if (error) {
             return res.status(422).json({ success: false, message: 'Something went wrong' });
         }

@@ -23,9 +23,8 @@ export default async function handler(
 ) {
   try {
     const { query } = req.query;
-    const token = getCookie('access_token', { req, res });
-    const user = await supabseAuthClient.supabaseAuth.getUser(token);
-    if (!user.data.user) {
+    const userId = getCookie('user_id', { req, res });
+    if (!userId) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     if (typeof query !== 'string' || query.trim() === '') {
@@ -37,7 +36,7 @@ export default async function handler(
 
     console.log(`[context] Processing query: "${query}"`);
 
-    const index = await getDataSource(user.data.user.id);
+    const index = await getDataSource(userId);
     if (!index) {
       throw new Error(
         `StorageContext is empty - call 'npm run generate' to generate the storage first`,
