@@ -1,19 +1,14 @@
 import { SimpleDocumentStore, VectorStoreIndex } from 'llamaindex';
 import { storageContextFromDefaults } from 'llamaindex/storage/StorageContext';
-import { STORAGE_CACHE_DIR } from './shared';
+import { vectorStore } from './qdrant';
+import { getDocuments } from './loader';
 
-export async function getDataSource(params?: any) {
+export async function getDataSource(userId: string) {
   const storageContext = await storageContextFromDefaults({
-    persistDir: `${STORAGE_CACHE_DIR}`,
+    vectorStore: vectorStore(userId)
   });
-
-  const numberOfDocs = Object.keys(
-    (storageContext.docStore as SimpleDocumentStore).toDict(),
-  ).length;
-  if (numberOfDocs === 0) {
-    return null;
-  }
-  return await VectorStoreIndex.init({
+  const documents = await getDocuments(userId)
+  return await VectorStoreIndex.fromDocuments(documents, {
     storageContext,
   });
 }

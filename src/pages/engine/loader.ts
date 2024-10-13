@@ -1,24 +1,32 @@
+import { supabseAuthClient } from '@/lib/supabase/auth';
 import {
-  FILE_EXT_TO_READER,
-  SimpleDirectoryReader,
-} from 'llamaindex/readers/SimpleDirectoryReader';
+  PDFReader,
+} from 'llamaindex/readers/PDFReader';
 
-export const DATA_DIR = './data';
 
-export function getExtractors() {
-  return FILE_EXT_TO_READER;
-}
 
-export async function getDocuments() {
-  const documents = await new SimpleDirectoryReader().loadData({
-    directoryPath: DATA_DIR,
-  });
-  // Set private=false to mark the document as public (required for filtering)
-  for (const document of documents) {
-    document.metadata = {
-      ...document.metadata,
-      private: 'false',
-    };
-  }
-  return documents;
+export async function getDocuments(userId: string) {
+  const { data: userDocs } = await supabseAuthClient.supabase.from('documents').select('*').eq('user_id', userId).select('documents')
+  if (!userDocs?.length) throw new Error('No docs found')
+  const docIds = userDocs.flatMap(doc => doc.documents)
+
+  console.debug('docIds', docIds)
+
+  const allUserDocs = await Promise.all(docIds.map(async (docId) => {
+    const docFileName = docId.split('/').at(-1)
+    const { data: doc } = await supabseAuthClient.supabase.storage.from('audio-kb').download(docFileName)
+    return doc
+  }))
+
+  console.debug('allUserDocs', allUserDocs)
+  const sanitizedDocs = await Promise.all(allUserDocs.map(doc => doc?.arrayBuffer()))
+
+  const documents = await Promise.all(sanitizedDocs.filter(doc => doc).map(async (downloadedDoc) => {
+    return new PDFReader().loadDataAsContent(
+      new Uint8Array(downloadedDoc!)
+    );
+  }))
+
+  const flatMapDocs = documents.flatMap(doc => doc)
+  return flatMapDocs;
 }

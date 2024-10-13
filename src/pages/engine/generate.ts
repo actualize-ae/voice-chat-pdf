@@ -1,11 +1,11 @@
 import { VectorStoreIndex } from 'llamaindex';
 import { storageContextFromDefaults } from 'llamaindex/storage/StorageContext';
-
 import * as dotenv from 'dotenv';
 
 import { getDocuments } from './loader';
 import { initSettings } from './settings';
-import { STORAGE_CACHE_DIR } from './shared';
+import { vectorStore } from './qdrant';
+
 
 // Load environment variables from local .env file
 dotenv.config();
@@ -17,24 +17,57 @@ async function getRuntime(func: any) {
   return end - start;
 }
 
-async function generateDatasource() {
+async function generateDatasource({
+  userId,
+  useReRanking,
+  topK,
+  topN
+}: {
+  userId: string,
+  useReRanking: boolean,
+  topK: number,
+  topN: number
+}) {
   console.log(`Generating storage context...`);
   // Split documents, create embeddings and store them in the storage context
   const ms = await getRuntime(async () => {
-    const storageContext = await storageContextFromDefaults({
-      persistDir: STORAGE_CACHE_DIR,
-    });
-    const documents = await getDocuments();
+    try {
+      const storageContext = await storageContextFromDefaults({
+        vectorStore: vectorStore(userId),
+      });
+      const documents = await getDocuments(userId);
 
-    await VectorStoreIndex.fromDocuments(documents, {
-      storageContext,
-    });
+      console.log('docs are', documents)
+
+      const index = await VectorStoreIndex.fromDocuments(documents, {
+        storageContext
+      });
+
+      console.log('index is', index)
+    } catch (e) {
+      console.error('Error generating storage context:', e);
+    }
   });
   console.log(`Storage context successfully generated in ${ms / 1000}s.`);
 }
 
-(async () => {
-  initSettings();
-  await generateDatasource();
-  console.log('Finished generating storage.');
-})();
+export async function generateEmbeddings({
+  useReRanking,
+  topK,
+  topN,
+  userId,
+}: {
+  userId: string,
+  useReRanking: boolean,
+  topK: number,
+  topN: number
+}) {
+  initSettings()
+  generateDatasource({
+    useReRanking,
+    topK,
+    topN,
+    userId
+  })
+
+}

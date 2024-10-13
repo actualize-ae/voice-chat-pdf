@@ -8,6 +8,8 @@ import {
 } from '@llamaindex/core/prompts';
 import { createMessageContent } from '@llamaindex/core/response-synthesizers';
 import { initSettings } from '../engine/settings';
+import { getCookie } from 'cookies-next';
+import { supabseAuthClient } from '@/lib/supabase/auth';
 
 type ResponseData = {
   message: string;
@@ -21,6 +23,11 @@ export default async function handler(
 ) {
   try {
     const { query } = req.query;
+    const token = getCookie('access_token', { req, res });
+    const user = await supabseAuthClient.supabaseAuth.getUser(token);
+    if (!user.data.user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
     if (typeof query !== 'string' || query.trim() === '') {
       console.log('[context] Invalid query parameter');
       return res.status(400).json({
@@ -30,7 +37,7 @@ export default async function handler(
 
     console.log(`[context] Processing query: "${query}"`);
 
-    const index = await getDataSource();
+    const index = await getDataSource(user.data.user.id);
     if (!index) {
       throw new Error(
         `StorageContext is empty - call 'npm run generate' to generate the storage first`,
