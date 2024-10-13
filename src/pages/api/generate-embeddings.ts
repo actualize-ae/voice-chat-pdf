@@ -9,28 +9,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { useReRanking, topK, topN } = req.body;
+    const { useReranking, topK, rerankingResults } = req.body;
 
 
 
     try {
-        const accessToken = getCookie('access_token', { req, res });
-        const user = await supabseAuthClient.supabaseAuth.getUser(accessToken);
-        if (!user.data.user) {
+        const userId = getCookie('user_id', { req, res });
+        if (!userId) {
             return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
-        if (!accessToken) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
 
         // Generate embeddings
         await generateEmbeddings({
-            userId: user.data.user.id,
-            useReRanking,
+            userId,
+            useReRanking: useReranking,
             topK,
-            topN
+            topN: rerankingResults
         });
+
+        const { error } = await supabseAuthClient.supabase.from('documents').update({
+            configs: {
+                useReranking,
+                topK,
+                rerankingResults
+            }
+        }).eq('user_id', userId);
+
+        if (error) {
+            console.error('Error updating document:', error);
+            return res.status(422).json({ message: 'Error updating document' });
+        }
 
         return res.status(200).json({ message: 'Embeddings generated successfully' });
     } catch (error) {

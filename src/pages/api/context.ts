@@ -36,16 +36,24 @@ export default async function handler(
 
     console.log(`[context] Processing query: "${query}"`);
 
-    const index = await getDataSource(userId);
+    const [index, dt] = await Promise.all([
+      getDataSource(userId),
+      supabseAuthClient.supabase.from('documents').select('configs').eq('user_id', userId).single(),
+    ]);
+
+    const { topK, useReranking, rerankingResults } = dt.data?.configs || { topK: 2, useReranking: true, rerankingResults: 2 };
+    console.log('[context] topK: ', topK, useReranking, rerankingResults);
     if (!index) {
       throw new Error(
         `StorageContext is empty - call 'npm run generate' to generate the storage first`,
       );
     }
-    const retriever = index.asRetriever();
+    const retriever = index.asRetriever({
+      similarityTopK: topK
+    });
 
     const nodes = await retriever.retrieve({
-      query: query,
+      query: query
     });
     console.log(`[context] Retrieved ${nodes.length} nodes`);
 

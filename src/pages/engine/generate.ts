@@ -28,7 +28,6 @@ async function generateDatasource({
   topK: number,
   topN: number
 }) {
-  console.log(`Generating storage context...`);
   // Split documents, create embeddings and store them in the storage context
   const ms = await getRuntime(async () => {
     try {
@@ -37,13 +36,11 @@ async function generateDatasource({
       });
       const documents = await getDocuments(userId);
 
-      console.log('docs are', documents)
 
       const index = await VectorStoreIndex.fromDocuments(documents, {
         storageContext
       });
 
-      console.log('index is', index)
     } catch (e) {
       console.error('Error generating storage context:', e);
     }

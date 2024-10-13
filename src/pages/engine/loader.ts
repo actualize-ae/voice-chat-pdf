@@ -10,7 +10,6 @@ export async function getDocuments(userId: string) {
   if (!userDocs?.length) throw new Error('No docs found')
   const docIds = userDocs.flatMap(doc => doc.documents)
 
-  console.debug('docIds', docIds)
 
   const allUserDocs = await Promise.all(docIds.map(async (docId) => {
     const docFileName = docId.split('/').at(-1)
@@ -18,7 +17,7 @@ export async function getDocuments(userId: string) {
     return doc
   }))
 
-  console.debug('allUserDocs', allUserDocs)
+
   const sanitizedDocs = await Promise.all(allUserDocs.map(doc => doc?.arrayBuffer()))
 
   const documents = await Promise.all(sanitizedDocs.filter(doc => doc).map(async (downloadedDoc) => {
