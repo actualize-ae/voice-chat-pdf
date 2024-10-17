@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { generateEmbeddings } from '../engine/generate';
+import { generateEmbeddings } from '../../lib/engine/generate';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { getCookie } from 'cookies-next';
 
@@ -24,9 +24,6 @@ export default async function handler(
     // Generate embeddings
     await generateEmbeddings({
       userId,
-      useReRanking: useReranking,
-      topK,
-      topN: rerankingResults,
     });
 
     const { error } = await supabseAuthClient.supabase

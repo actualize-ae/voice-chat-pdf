@@ -755,3 +755,5 @@ export function ConsolePage() {
     </div>
   );
 }
+
+export default ConsolePage;

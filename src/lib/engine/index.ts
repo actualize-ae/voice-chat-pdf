@@ -1,4 +1,4 @@
-import { SimpleDocumentStore, VectorStoreIndex } from 'llamaindex';
+import { VectorStoreIndex } from 'llamaindex';
 import { storageContextFromDefaults } from 'llamaindex/storage/StorageContext';
 import { vectorStore } from './qdrant';
 import { getDocuments } from './loader';

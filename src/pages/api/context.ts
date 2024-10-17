@@ -1,15 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { CohereRerank } from 'llamaindex';
-import { getDataSource } from '../engine';
-import { initSettings } from '../engine/settings';
+import { getDataSource } from '../../lib/engine';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 
 type ResponseData = {
   message: string;
 };
-
-initSettings();
 
 export default async function handler(
   req: NextApiRequest,

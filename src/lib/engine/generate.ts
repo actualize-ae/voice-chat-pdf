@@ -18,14 +18,8 @@ async function getRuntime(func: any) {
 
 async function generateDatasource({
   userId,
-  useReRanking,
-  topK,
-  topN,
 }: {
   userId: string;
-  useReRanking: boolean;
-  topK: number;
-  topN: number;
 }) {
   // Split documents, create embeddings and store them in the storage context
   const ms = await getRuntime(async () => {
@@ -46,21 +40,12 @@ async function generateDatasource({
 }
 
 export async function generateEmbeddings({
-  useReRanking,
-  topK,
-  topN,
   userId,
 }: {
   userId: string;
-  useReRanking: boolean;
-  topK: number;
-  topN: number;
 }) {
   initSettings();
   generateDatasource({
-    useReRanking,
-    topK,
-    topN,
     userId,
   });
 }
