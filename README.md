@@ -27,6 +27,8 @@
 
 * [📄 Voice Chat with PDFs](#voice-chat-with-pdfs)
 * [⚙️ Prerequisites](#prerequisites)
+* [🔮 Features](#-features)
+* [🔑 OpenAI API Key](#openai-api-key)
 * [🚀 Getting Started](#getting-started)
 * [💬 Using the Console](#using-the-console)
 * [📚 Learn More](#learn-more)
@@ -46,6 +48,34 @@ extending it with a simple RAG system using [LlamaIndexTS](https://ts.llamaindex
 
 The project requires an OpenAI API key (**user key** or **project key**) that has access to the
 Realtime API. Set the key in the `.env` file or as an environment variable `OPENAI_API_KEY`.
+
+## 🔮 Features
+
+Most features are free, even for commercial use.
+
+- **User Authentication**
+  - Sign up and sign in with user credentials for secure access.
+
+- **Document Upload**
+  - Upload documents for interaction.
+  - Preview mode to review documents before uploading.
+
+- **Embedding Documents**
+  - Generate embeddings for uploaded documents.
+  - Set top-k parameters for optimized query results.
+  - Machine searches through generated embeddings to return relevant chunks.
+
+- **Interactive Playground**
+  - Engage with documents using voice commands.
+  - Choose between **Push-to-Talk** or **Open Mic** interaction modes.
+  - Receive voice responses from the machine for a seamless experience.
+
+## 🔑 OpenAI API Key
+
+- **Required for Document Interaction**
+  - An OpenAI API key is necessary for generating embeddings and enabling voice interactions.
+  - Enter your API key in the interactive playground to start using voice commands with your documents.
+
 
 ## Getting Started
 
