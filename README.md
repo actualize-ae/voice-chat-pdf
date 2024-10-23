@@ -28,7 +28,7 @@
 * [📄 Voice Chat with PDFs](#voice-chat-with-pdfs)
 * [⚙️ Prerequisites](#prerequisites)
 * [🔮 Features](#-features)
-* [🔑 OpenAI API Key](#openai-api-key)
+* [🔑 OpenAI API Key](#-openai-api-key)
 * [🚀 Getting Started](#getting-started)
 * [💬 Using the Console](#using-the-console)
 * [📚 Learn More](#learn-more)
