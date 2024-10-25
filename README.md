@@ -53,19 +53,19 @@ Realtime API. Set the key in the `.env` file or as an environment variable `OPEN
 
 Most features are free, even for commercial use.
 
-- **User Authentication**
+- [x] **User Authentication**
   - Sign up and sign in with user credentials for secure access.
 
-- **Document Upload**
+- [x] **Document Upload**
   - Upload documents for interaction.
   - Preview mode to review documents before uploading.
 
-- **Embedding Documents**
+- [x] **Embedding Documents**
   - Generate embeddings for uploaded documents.
   - Set top-k parameters for optimized query results.
   - Machine searches through generated embeddings to return relevant chunks.
 
-- **Interactive Playground**
+- [x] **Interactive Playground**
   - Engage with documents using voice commands.
   - Choose between **Push-to-Talk** or **Open Mic** interaction modes.
   - Receive voice responses from the machine for a seamless experience.
