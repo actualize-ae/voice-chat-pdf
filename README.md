@@ -78,11 +78,11 @@ Most features are free, even for commercial use.
 
 ### Key Components Overview
 
-1. **<img src="images/nextjs-logo.png" alt="Next.js" width="20" style="vertical-align: middle;"> Next.js Service (App & API)**
+1. **<img src="images/nextjs.png" alt="Next.js" width="20" style="vertical-align: middle;"> Next.js Service (App & API)**
    - **Next.js App:** This is the frontend layer, which provides the user interface where users can interact with the system, including uploading documents and querying them via voice interaction.
    - **Next.js API:** The backend service that handles API requests from the frontend, processes user requests (like document uploads), and interacts with other services such as the RAG (Retrieval-Augmented Generation) pipeline.
 
-2. **Supabase**
+2. **<img src="images/supabase.png" alt="Supabase" width="20" style="vertical-align: middle;"> Supabase**
    - **Supabase Auth:** Manages user authentication and authorization for secure access to document-related features.
    - **Supabase Storage:** Stores uploaded documents and associated metadata, ensuring secure access and scalability for user data.
 
@@ -91,10 +91,10 @@ Most features are free, even for commercial use.
      - **Retriever:** Fetches relevant document sections based on the query.
      - **Cohere Reranking:** Enhances the relevance of retrieved document sections to provide more accurate results.
 
-4. **Vector Store (Qdrant)**
+4. **<img src="images/qdrant.png" alt="Qdrant" width="20" style="vertical-align: middle;"> Vector Store (Qdrant)**
    - **Qdrant Vector Store:** This is where document embeddings are stored after the document upload. Embeddings are numerical representations of document chunks that allow the system to efficiently search and retrieve relevant information based on user queries.
 
-5. **OpenAI Realtime API**
+5. **<img src="images/openai.png" alt="Open AI" width="20" style="vertical-align: middle;"> OpenAI Realtime API**
    - Provides AI-driven responses by interacting with the user’s queries in real time. The system sends the retrieved context from the document (via the RAG pipeline) to OpenAI’s API, which generates voice responses based on the document content.
 
 ### Interaction Flow
