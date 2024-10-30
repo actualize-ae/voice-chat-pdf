@@ -82,7 +82,7 @@ Most features are free, even for commercial use.
    - **Next.js App:** This is the frontend layer, which provides the user interface where users can interact with the system, including uploading documents and querying them via voice interaction.
    - **Next.js API:** The backend service that handles API requests from the frontend, processes user requests (like document uploads), and interacts with other services such as the RAG (Retrieval-Augmented Generation) pipeline.
 
-2. **<img src="images/supabase.png" alt="Supabase" width="20" style="vertical-align: middle;"> Supabase**
+2. **<img src="images/supabase.png" alt="Supabase" width="20" height="20" style="vertical-align: middle;"> Supabase**
    - **Supabase Auth:** Manages user authentication and authorization for secure access to document-related features.
    - **Supabase Storage:** Stores uploaded documents and associated metadata, ensuring secure access and scalability for user data.
 
@@ -102,7 +102,7 @@ Most features are free, even for commercial use.
 1. **Client App (Frontend):** The user uploads a document and interacts with it through the app.
 2. **Document Storage (Supabase):** The document is stored securely, and metadata is captured.
 3. **Embedding Generation (RAG Pipeline):** The document is processed, embeddings are generated, and stored in the **Qdrant Vector Store**.
-4. **Query Handling (Retriever & Cohere):** When a user queries the document, relevant chunks are retrieved using the embeddings.
+4. **Query Handling (Retriever & Reranking):** When a user queries the document, relevant chunks are retrieved using the embeddings.
 5. **Response Generation (OpenAI API):** The retrieved chunks are passed to the **OpenAI API**, which generates a response that is returned to the user through the **Client App**.
 
 This architecture ensures seamless interaction, real-time voice responses, and efficient document handling, making **DocTalk** a robust platform for document-based AI interactions.
@@ -157,11 +157,4 @@ conversation modes, and switch between them at any time.
 
 You can freely interrupt the model at any time in push-to-talk or VAD mode.
 
-## Learn More
 
-To learn more about LlamaIndex, take a look at the following resources:
-
-- [LlamaIndex Documentation](https://docs.llamaindex.ai) - learn about LlamaIndex (Python features).
-- [LlamaIndexTS Documentation](https://ts.llamaindex.ai) - learn about LlamaIndex (Typescript features).
-
-You can check out [the LlamaIndexTS GitHub repository](https://github.com/run-llama/LlamaIndexTS) - your feedback and contributions are welcome!
