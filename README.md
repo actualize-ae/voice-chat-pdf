@@ -59,10 +59,11 @@ Most features are free, even for commercial use.
   - Upload documents for interaction.
   - Preview mode to review documents before uploading.
 
-- [x] **Embedding Documents**
+- [x] **Retrieval**
   - Generate embeddings for uploaded documents.
-  - Set top-k parameters for optimized query results.
+  - Set top-n for similarity searches to find the most relevant chunks.
   - Machine searches through generated embeddings to return relevant chunks.
+  - Set top-k for reranking results using Cohere to enhance relevance.
 
 - [x] **Interactive Playground**
   - Engage with documents using voice commands.
@@ -77,7 +78,7 @@ Most features are free, even for commercial use.
 
 ### Key Components Overview
 
-1. **Next.js Service (App & API)**
+1. **<img src="images/nextjs-logo.png" alt="Next.js" width="20" style="vertical-align: middle;"> Next.js Service (App & API)**
    - **Next.js App:** This is the frontend layer, which provides the user interface where users can interact with the system, including uploading documents and querying them via voice interaction.
    - **Next.js API:** The backend service that handles API requests from the frontend, processes user requests (like document uploads), and interacts with other services such as the RAG (Retrieval-Augmented Generation) pipeline.
 
@@ -93,10 +94,7 @@ Most features are free, even for commercial use.
 4. **Vector Store (Qdrant)**
    - **Qdrant Vector Store:** This is where document embeddings are stored after the document upload. Embeddings are numerical representations of document chunks that allow the system to efficiently search and retrieve relevant information based on user queries.
 
-5. **Relay Server**
-   - Acts as an intermediary between the **Client App** and the **OpenAI Realtime API**, managing real-time communication and user interaction. It facilitates the WebSocket connections needed for voice interaction.
-
-6. **OpenAI Realtime API**
+5. **OpenAI Realtime API**
    - Provides AI-driven responses by interacting with the user’s queries in real time. The system sends the retrieved context from the document (via the RAG pipeline) to OpenAI’s API, which generates voice responses based on the document content.
 
 ### Interaction Flow
@@ -122,8 +120,7 @@ Our goal is to continuously enhance the interaction experience between the user 
 - **Optimized Model Inference**  
   We’ve made significant optimizations to reduce the time it takes for the model to process user queries and return responses. These improvements are aimed at providing a smoother, near real-time interaction experience.
 
-- **Parallel Processing**  
-  By leveraging parallel processing, the system can handle multiple queries or larger documents without slowing down. This ensures quicker response times, especially when dealing with complex documents or longer conversations.
+
 
 
 ## Getting Started
