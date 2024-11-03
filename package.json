@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
+    "@qdrant/js-client-rest": "^1.12.0",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
@@ -15,6 +16,7 @@
     "@supabase/supabase-js": "^2.45.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cohere-ai": "^7.14.0",
     "cookies-next": "^4.3.0",
     "dotenv": "^16.4.5",
     "formidable": "^3.5.1",
