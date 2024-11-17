@@ -1,9 +1,11 @@
+import appConfig from '@/config/app-config';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { PDFReader } from 'llamaindex/readers/PDFReader';
 
+const { bucketName, tableName } = appConfig.supabase
 export async function getDocuments(userId: string) {
   const { data: userDocs } = await supabseAuthClient.supabase
-    .from('documents')
+    .from(tableName)
     .select('*')
     .eq('user_id', userId)
     .select('documents');
@@ -14,7 +16,7 @@ export async function getDocuments(userId: string) {
     docIds.map(async (docId) => {
       const docFileName = docId.split('/').at(-1);
       const { data: doc } = await supabseAuthClient.supabase.storage
-        .from('audio-kb')
+        .from(bucketName)
         .download(docFileName);
       return doc;
     }),

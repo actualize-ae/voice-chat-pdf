@@ -1,9 +1,13 @@
+import appConfig from '@/config/app-config';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
 
+
+const { projectUrl, anonKey } = appConfig.supabase
+
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+  projectUrl,
+  anonKey,
 );
 
 export class SupabaseAuth {

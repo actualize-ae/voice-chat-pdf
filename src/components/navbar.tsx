@@ -3,7 +3,6 @@ import { Home, Upload, PlayCircle, CreativeCommons, Menu } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { supabseAuthClient } from '@/lib/supabase/auth';
 import { useRouter } from 'next/router';
 import { signOut } from '@/lib/api/utils';
 

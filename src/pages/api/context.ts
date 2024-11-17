@@ -4,6 +4,9 @@ import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { qdrantClient } from '@/lib/engine/qdrant';
 import { cohereClient } from '@/lib/engine/cohere';
+import appConfig from '@/config/app-config';
+
+const { tableName } = appConfig.supabase
 
 type ResponseData = {
   message: string;
@@ -30,7 +33,7 @@ export default async function handler(
     console.log(`[context] Processing query: "${query}"`);
 
     const dt = await supabseAuthClient.supabase
-      .from('documents')
+      .from(tableName)
       .select('configs')
       .eq('user_id', userId)
       .single();

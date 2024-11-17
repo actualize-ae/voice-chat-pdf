@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
+import appConfig from '@/config/app-config';
+
+const { tableName } = appConfig.supabase
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +21,7 @@ export default async function handler(
 
       const finalDocs = [docUrl];
       const { data: checkExistingUserDocs } = await supabseAuthClient.supabase
-        .from('documents')
+        .from(tableName)
         .select()
         .eq('user_id', userId)
         .select('documents');
@@ -29,7 +32,7 @@ export default async function handler(
         });
       }
       const { data, error } = await supabseAuthClient.supabase
-        .from('documents')
+        .from(tableName)
         .upsert(
           {
             user_id: userId,
@@ -46,7 +49,7 @@ export default async function handler(
         return res.status(422).json({ success: false, message: error.message });
       }
 
-      return res.status(200).json({ data, message: 'Login successful' });
+      return res.status(200).json({ data, message: 'Documents Linked Successfully' });
     } catch (e) {
       res.status(401).json({ success: false, message: 'Invalid credentials' });
     }

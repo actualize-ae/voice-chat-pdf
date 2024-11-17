@@ -6,6 +6,7 @@ import '../components/toggle/Toggle.scss';
 import '../pages/ConsolePage.scss';
 import { useEffect } from 'react';
 import { supabseAuthClient } from '@/lib/supabase/auth';
+
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     supabseAuthClient.supabaseAuth.onAuthStateChange((event, session) => {

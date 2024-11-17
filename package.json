@@ -20,6 +20,7 @@
     "cookies-next": "^4.3.0",
     "dotenv": "^16.4.5",
     "formidable": "^3.5.1",
+    "inquirer": "^12.1.0",
     "leaflet": "^1.9.4",
     "llamaindex": "^0.6.15",
     "lucide-react": "^0.452.0",
@@ -48,7 +49,8 @@
     "zip": "zip -r realtime-api-console.zip . -x 'node_modules' 'node_modules/*' 'node_modules/**' '.git' '.git/*' '.git/**' '.DS_Store' '*/.DS_Store' 'package-lock.json' '*.zip' '*.tar.gz' '*.tar' '.env'",
     "relay": "nodemon ./relay-server/index.js",
     "format": "prettier --ignore-unknown --cache --check .",
-    "format:write": "prettier --ignore-unknown --write ."
+    "format:write": "prettier --ignore-unknown --write .",
+    "setup:supabase": "node --trace-deprecation ./scripts/index.mjs"
   },
   "eslintConfig": {
     "extends": [
