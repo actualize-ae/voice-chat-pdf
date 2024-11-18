@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
+import appConfig from '@/config/app-config';
+
+const { tableName, bucketName } = appConfig.supabase
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,7 +22,7 @@ export default async function handler(
     }
 
     const { data, error } = await supabseAuthClient.supabase
-      .from('documents')
+      .from(tableName)
       .select()
       .eq('user_id', userId)
       .select('documents');
@@ -35,7 +38,7 @@ export default async function handler(
       finalDocs.map(async (doc: string) => {
         const path = doc.split('/').at(-1);
         const { data } = await supabseAuthClient.supabase.storage
-          .from('audio-kb')
+          .from(bucketName)
           .getPublicUrl(path || '');
         return {
           id: path,

@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { generateEmbeddings } from '../../lib/engine/generate';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { getCookie } from 'cookies-next';
+import appConfig from '@/config/app-config';
+
+const { tableName } = appConfig.supabase
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,7 +30,7 @@ export default async function handler(
     });
 
     const { error } = await supabseAuthClient.supabase
-      .from('documents')
+      .from(tableName)
       .update({
         configs: {
           useReranking,

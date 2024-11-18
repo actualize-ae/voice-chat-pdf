@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
+    "@qdrant/js-client-rest": "^1.12.0",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
@@ -15,9 +16,11 @@
     "@supabase/supabase-js": "^2.45.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cohere-ai": "^7.14.0",
     "cookies-next": "^4.3.0",
     "dotenv": "^16.4.5",
     "formidable": "^3.5.1",
+    "inquirer": "^12.1.0",
     "leaflet": "^1.9.4",
     "llamaindex": "^0.6.15",
     "lucide-react": "^0.452.0",
@@ -46,7 +49,8 @@
     "zip": "zip -r realtime-api-console.zip . -x 'node_modules' 'node_modules/*' 'node_modules/**' '.git' '.git/*' '.git/**' '.DS_Store' '*/.DS_Store' 'package-lock.json' '*.zip' '*.tar.gz' '*.tar' '.env'",
     "relay": "nodemon ./relay-server/index.js",
     "format": "prettier --ignore-unknown --cache --check .",
-    "format:write": "prettier --ignore-unknown --write ."
+    "format:write": "prettier --ignore-unknown --write .",
+    "setup:supabase": "node --trace-deprecation ./scripts/index.mjs"
   },
   "eslintConfig": {
     "extends": [

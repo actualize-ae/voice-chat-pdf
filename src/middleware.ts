@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { supabseAuthClient } from './lib/supabase/auth';
-import { User, UserResponse } from '@supabase/supabase-js';
 
 const protectedRoutes = ['/', '/upload', '/embeddings'];
 
