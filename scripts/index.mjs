@@ -24,9 +24,9 @@ inquirer.prompt([...questions, {
     type: 'input',
     name: 'bucketName',
     message: `Name of Bucket
-        Note: changing this name will require you to change the bucket name in source code too
+        Note: This must be same as env variable NEXT_PUBLIC_SUPABASE_BUCKET_NAME
     `,
-    default: 'audio-kb',
+    default: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME,
     when(answers){
       return answers.createBucket
     }
@@ -44,7 +44,7 @@ inquirer.prompt([...questions, {
     type: 'rawlist',
     name: 'allowedMimeTypes',
     message: `Allowed Mime Types`,
-    choices: ['application/pdf', 'image/png'],
+    choices: ['application/pdf'],
     when(answers){
       return answers.createBucket
     }
@@ -52,7 +52,7 @@ inquirer.prompt([...questions, {
 {
   type: 'confirm',
   name: 'executeRpc',
-  message: 'Execute supabase rpc',
+  message: 'Execute supabase rpc(This must match the rpc name from Supabase dashboard)',
 }, {
     type: 'input',
     name: 'rpcName',
@@ -65,9 +65,9 @@ inquirer.prompt([...questions, {
     type: 'input',
     name: 'tableName',
     message: `Name of Database table
-        Note: changing this name will require you to change the database table name in source code too
+        Note: This must be same as env variable NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME
     `,
-    default: 'documents',
+    default: process.env.NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME,
     when(answers){
       return answers.executeRpc
     }

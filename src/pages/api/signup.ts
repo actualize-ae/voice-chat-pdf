@@ -25,6 +25,7 @@ export default async function handler(
       });
       return res.status(200).json({ data, message: 'Signup successful' });
     } catch (e) {
+      console.error('Error occured', e)
       res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
   } else {
