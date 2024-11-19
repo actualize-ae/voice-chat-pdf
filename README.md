@@ -31,9 +31,8 @@
 * [🏗️ Architecture](#%EF%B8%8F-architecture)
 * [🔑 OpenAI API Key](#-openai-api-key)
 * [🚀 Performance Improvements](#-performance-improvements)
-* [🚀 Getting Started](#getting-started)
-* [💬 Using the Console](#using-the-console)
-* [📚 Learn More](#learn-more)
+* [⚠️ Important Notices](#%EF%B8%8F-important-notices)
+* [🛠️ Setup Guide](#%EF%B8%8F-setup-guide)
 
 
 This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/)
@@ -120,41 +119,87 @@ Our goal is to continuously enhance the interaction experience between the user 
 - **Optimized Model Inference**  
   We’ve made significant optimizations to reduce the time it takes for the model to process user queries and return responses. These improvements are aimed at providing a smoother, near real-time interaction experience.
 
+## ⚠️ Important Notices
+
+### Document Upload Responsibility
+When uploading documents, users should be aware that the responsibility of the content lies entirely with them. Please exercise caution while uploading sensitive or confidential documents. Ensure that you have the necessary permissions to share and process the document before interacting with this platform.
+
+### Forked Repository
+This project is a forked version of the [run-llama/voice-chat-pdf](https://github.com/run-llama/voice-chat-pdf). While the functionality may differ, the usage policies, terms, and conditions from the original repository still apply. Please refer to the [original repository's documentation](https://github.com/run-llama/voice-chat-pdf) for more details regarding usage policies and guidelines.
 
 
+## 🛠️ Setup Guide
 
-## Getting Started
+This project supports deployment through **Vercel** and running the application locally. It uses Supabase for authentication and database storage, and Qdrant for vector storage. Follow these steps for a seamless setup:
 
-First, install the dependencies:
 
+### 1. Supabase Setup
+
+Set up a Supabase project for authentication and database functionalities. This includes:
+- Creating a Supabase project and linking it.
+- Configuring Supabase authentication (email verification or disabling confirmation emails).
+- Setting up a database table and storage buckets.
+
+Once your Supabase project is set up, run the following command to create storage buckets and database tables:
+
+```bash
+npm run setup:supabase
 ```
-npm install
+
+For step-by-step instructions, refer to the [Supabase Setup Guide](https://doc-talk.notion.site/Supabase-Setup-141202ad5c418005985be523ecadb451).
+
+
+### 2. Qdrant Cloud Setup
+
+Qdrant is used as a vector database for storing and searching embeddings. Set up a free Qdrant cluster and configure its environment variables.
+
+Detailed instructions can be found in the [Qdrant Setup Guide](https://doc-talk.notion.site/Supabase-Setup-141202ad5c418005985be523ecadb451).
+
+
+### 3. Environment Variables
+
+Add the following environment variables to your `.env` file:
+
+```bash
+# OpenAI settings
+MODEL_PROVIDER=openai
+MODEL=gpt-4o-mini
+EMBEDDING_MODEL=text-embedding-3-large
+EMBEDDING_DIM=1024
+OPENAI_API_KEY=<openai_api_key>
+
+# Cohere API (optional)
+COHERE_API_KEY=<cohere_api_key>
+
+# Supabase settings
+NEXT_PUBLIC_SUPABASE_BUCKET_NAME=<bucket-name>
+NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT=<file-size>
+NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES=<type>
+NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME=<table-name>
+NEXT_PUBLIC_SUPABASE_URL=https://<project_id>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
+
+# Qdrant settings
+QDRANT_URL=https://<instance>.europe-west3-0.gcp.cloud.qdrant.io
+QDRANT_API_KEY=<qdrant_api_key>
 ```
 
-Second, generate the embeddings of the documents in the `./data` directory:
+### 4. Run the Application
 
-```
-npm run generate
-```
+You can run the application in two ways:
 
-The example PDF is about physical letter standards, you can use your own documents.
+1. On Vercel
+- Deploy the application to Vercel.
+- Add the `.env` variables in the Vercel environment settings.
 
-Third, run the development server:
-
-```
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Using the console
-
-You'll be prompted on startup to enter the API key again (this needs to be fixed).
-
-To start a session you'll need to **connect**. This will require microphone access.
-You can then choose between **manual** (Push-to-talk) and **vad** (Voice Activity Detection)
-conversation modes, and switch between them at any time.
-
-You can freely interrupt the model at any time in push-to-talk or VAD mode.
-
+2. Locally
+- Install the required dependencies:
+   ```bash
+   npm install
+   ```
+- Start the development server:
+  ```bash
+   npm run dev
+   ```
+  
 
