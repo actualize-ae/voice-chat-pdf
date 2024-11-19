@@ -567,10 +567,7 @@ export function ConsolePage() {
   return (
     <div data-component="ConsolePage">
       <div className="content-top">
-        <div className="content-title">
-          <span>LlamaIndex - Voice Chat with PDFs</span>
-        </div>
-        <div className="content-api-key">
+        <div className="content-api-key ml-auto">
           {!LOCAL_RELAY_SERVER_URL && (
             <Button
               icon={Edit}
