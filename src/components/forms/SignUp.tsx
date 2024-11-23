@@ -7,12 +7,12 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import ShimmerButton from "../ui/shimmer-button"
-import { User, UserPlus } from "lucide-react"
+import ShimmerButton from "@/components/ui/shimmer-button"
+import { LabelInputContainer } from "@/components/labels/LabelContainer"
+import { Label } from "@/components/ui/label"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -53,17 +53,20 @@ export function SignupForm({ handleSignup }: SignUpFormProps) {
     }
 
     return <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
             <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className="text-lg italic">Username</FormLabel>
-                        <FormControl>
-                            <Input placeholder="john.doe@gmail.com" {...field} />
-                        </FormControl>
-                        <FormMessage className="text-md" />
+                        <LabelInputContainer>
+                            <Label className="text-md font-thin">Username</Label>
+                            <FormControl>
+
+                                <Input placeholder="john.doe@gmail.com" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-md" />
+                        </LabelInputContainer>
                     </FormItem>
                 )}
             />
@@ -72,11 +75,13 @@ export function SignupForm({ handleSignup }: SignUpFormProps) {
                 name="password"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className="text-lg italic">Password</FormLabel>
-                        <FormControl>
-                            <Input type="password" placeholder="Password with minimum 6 characters" {...field} />
-                        </FormControl>
-                        <FormMessage className="text-md" />
+                        <LabelInputContainer>
+                            <Label className="text-md font-thin">Password</Label>
+                            <FormControl>
+                                <Input type="password" placeholder="•••••••" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-md" />
+                        </LabelInputContainer>
                     </FormItem>
                 )}
             />
@@ -85,11 +90,13 @@ export function SignupForm({ handleSignup }: SignUpFormProps) {
                 name="confirmPassword"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className="text-lg italic">Confirm Password</FormLabel>
-                        <FormControl>
-                            <Input type="password" placeholder="Password with minimum 6 characters" {...field} />
-                        </FormControl>
-                        <FormMessage className="text-md" />
+                        <LabelInputContainer>
+                            <Label className="text-md font-thin">Confirm Password</Label>
+                            <FormControl>
+                                <Input type="password" placeholder="•••••••" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-md" />
+                        </LabelInputContainer>
                     </FormItem>
                 )}
             />
