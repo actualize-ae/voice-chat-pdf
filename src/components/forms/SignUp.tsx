@@ -34,7 +34,7 @@ interface SignUpFormProps {
     }) => Promise<void>
 }
 
-export function SignUpForm({ handleSignup }: SignUpFormProps) {
+export function SignupForm({ handleSignup }: SignUpFormProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
