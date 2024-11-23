@@ -1,7 +1,4 @@
 import Link from 'next/link';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import { loginWithEmailPassword } from '@/lib/api/utils';

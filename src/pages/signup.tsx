@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { CompanyLogo } from '@/components/logo/CompanyLogo';
 import { AnimatedBeamDemo } from '@/components/animated/AnimatedBeamDemo';
 import ShineBorder from '@/components/ui/shine-border';
-import { SignupForm } from '@/components/forms/Signup';
+import { SignupForm } from '@/components/forms/SignUp';
 import { cn } from '@/lib/utils';
 import DotPattern from '@/components/ui/dot-pattern';
 import WordPullUp from '@/components/ui/word-pull-up';
