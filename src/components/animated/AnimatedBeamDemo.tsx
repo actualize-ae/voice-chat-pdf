@@ -4,7 +4,7 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
-import { FileStack } from "lucide-react";
+import { IconFileTypePdf, IconFileTextAi } from '@tabler/icons-react'
 
 const Circle = forwardRef<
     HTMLDivElement,
@@ -51,7 +51,7 @@ export function AnimatedBeamDemo({
                         <Icons.pdf />
                     </Circle>
                     <Circle ref={div2Ref}>
-                        <Icons.pdf />
+                        <IconFileTextAi />
                     </Circle>
                     <Circle ref={div3Ref}>
                         <Icons.pdf />
@@ -112,7 +112,7 @@ export function AnimatedBeamDemo({
 
 const Icons = {
     pdf: () => (
-        <FileStack />
+        <IconFileTypePdf />
     ),
     openai: () => (
         <svg
