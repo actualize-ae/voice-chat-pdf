@@ -8,6 +8,7 @@ import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { signUpWithEmailPassword } from '@/lib/api/utils';
 import { Toaster } from 'react-hot-toast';
+import { CompanyLogo } from '@/components/logo/CompanyLogo';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function SignUpPage() {
       <Toaster position="top-right" reverseOrder={false} />
       <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
-          <Home className="h-8 w-8 text-rose-500" />
+          <CompanyLogo />
         </div>
         <h1 className="text-2xl font-semibold text-center mb-6 text-gray-800">
           Sign up for DocTalk

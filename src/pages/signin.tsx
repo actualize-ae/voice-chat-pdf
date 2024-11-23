@@ -8,6 +8,7 @@ import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import { loginWithEmailPassword } from '@/lib/api/utils';
+import { CompanyLogo } from '@/components/logo/CompanyLogo';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -26,11 +27,8 @@ export default function SignInPage() {
       <Toaster position="top-right" reverseOrder={false} />
       <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
-          <Home className="h-8 w-8 text-rose-500" />
+         <CompanyLogo />
         </div>
-        <h1 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-          Welcome to DocTalk
-        </h1>
         <form onSubmit={handleSignIn} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email" className="text-gray-700">
