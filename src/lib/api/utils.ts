@@ -112,6 +112,22 @@ export const linkDocuments = (docUrl: string) => {
   });
 };
 
+export const unlinkDocuments = (docUrl: string) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/unlink-document-to-user',
+    body: {
+      docUrl,
+    },
+    onSuccess: () => {
+      toast.success('Documents unlinked successfully');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
+};
+
 export const fetchDocuments = () => {
   return new Promise((resolve, reject) =>
     callApi({

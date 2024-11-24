@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Settings } from 'llamaindex';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { qdrantClient } from '@/lib/engine/qdrant';
 import { cohereClient } from '@/lib/engine/cohere';
 import appConfig from '@/config/app-config';
+import { Settings } from 'llamaindex';
 
 const { tableName } = appConfig.supabase
 

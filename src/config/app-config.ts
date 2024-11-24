@@ -1,4 +1,5 @@
 
+
 const appConfig = {
   supabase: {
     bucketName: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME || 'audio-kb',

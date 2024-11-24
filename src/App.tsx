@@ -1,11 +1,9 @@
-import { NavbarComponent } from './components/navbar';
-import { ConsolePage } from './pages/ConsolePage';
+import { Intro } from './components/animated/Intro';
 
 function App() {
   return (
     <div data-component="App">
-      <NavbarComponent />
-      <ConsolePage />
+      <Intro />
     </div>
   );
 }

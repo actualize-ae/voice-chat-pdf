@@ -29,7 +29,7 @@ async function generateDatasource({
       });
       const documents = await getDocuments(userId);
 
-      const index = await VectorStoreIndex.fromDocuments(documents, {
+      await VectorStoreIndex.fromDocuments(documents, {
         storageContext,
       });
     } catch (e) {
