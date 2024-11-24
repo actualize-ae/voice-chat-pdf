@@ -299,7 +299,7 @@ export function ConsolePage() {
     }
     console.log(`Triggering context API for ${transcript}`);
     const response = await fetch(
-      `/api/context?query=${encodeURIComponent(transcript)}`,
+      `/api/context?query=${encodeURIComponent(transcript)}&openAIApiKey=${encodeURIComponent(localStorage.getItem('tmp::voice_api_key') || '')}`,
     );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

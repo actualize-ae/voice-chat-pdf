@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label"
 import appConfig from "@/config/app-config"
 import { RadioCardIndicator, RadioCardItem } from "../ui/radio-card"
 import { RadioCardGroup } from "../ui/radio-card"
-import { useState } from "react"
 import { Badge } from "../ui/badge"
 import { IconBrandOpenai } from "@tabler/icons-react"
 import { generateEmbeddings } from "@/lib/api/utils"
@@ -24,10 +23,9 @@ import { generateEmbeddings } from "@/lib/api/utils"
 const formSchema = z.object({
     embeddingModel: z.string(),
     embeddingApiKey: z.string(),
-    topKResults: z.number().positive(),
-    embeddingDimension: z.number(),
-    chunkSize: z.number(),
-    chunkOverlap: z.number()
+    embeddingDimension: z.coerce.number().positive(),
+    chunkSize: z.coerce.number().positive(),
+    chunkOverlap: z.coerce.number().positive()
 })
 
 const modelConfigs: {
@@ -52,7 +50,6 @@ export function GenerateEmbeddingsForm() {
         defaultValues: {
             embeddingModel: "gpt-4o-mini-text-large",
             embeddingApiKey: "",
-            topKResults: 2,
             chunkSize: 512,
             chunkOverlap: 20,
             embeddingDimension: 1024

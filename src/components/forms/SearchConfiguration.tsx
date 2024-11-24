@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label"
 import appConfig from "@/config/app-config"
 import { RadioCardIndicator, RadioCardItem } from "../ui/radio-card"
 import { RadioCardGroup } from "../ui/radio-card"
-import { useState } from "react"
 import { Badge } from "../ui/badge"
 import { IconBrandOpenai } from "@tabler/icons-react"
 import {
@@ -28,10 +27,12 @@ import {
 } from "@/components/ui/select"
 import { Slider } from "../ui/slider"
 import NumberTicker from "../ui/number-ticker"
+import { saveSearchConfigs } from "@/lib/api/utils"
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
     "searchType": z.string(),
-    "topK": z.number()
+    "topK": z.coerce.number().positive()
 })
 
 
@@ -45,8 +46,9 @@ export function SearchConfigurationForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log('values are', values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        await saveSearchConfigs(values)
+        toast.success("Settings Saved Successfully!")
     }
 
     const rerankers: {

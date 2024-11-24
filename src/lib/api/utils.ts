@@ -157,3 +157,17 @@ export const generateEmbeddings = (payload: Record<string, any>) => {
     },
   });
 };
+
+export const saveSearchConfigs = (payload: Record<string, any>) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/save-search-configs',
+    body: payload,
+    onSuccess: (data) => {
+      toast.success('Settings Saved Successfully');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
+};

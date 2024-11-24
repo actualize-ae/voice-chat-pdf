@@ -7,7 +7,7 @@ import { fetchDocuments, linkDocuments, unlinkDocuments } from '@/lib/api/utils'
 import { cn, uploadFile } from '@/lib/utils';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
@@ -103,9 +103,9 @@ export default function PdfUploader() {
   const { triggerConfetti } = useConfettiFireworks({})
   return (
     <>
-
       <div className="flex justify-center py-12 px-4 sm:px-6 lg:px-8">
         <AppDock />
+        <Toaster position="top-right" reverseOrder={false} />
         <DotPattern
           className={cn(
             "[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
