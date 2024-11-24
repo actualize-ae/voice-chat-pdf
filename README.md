@@ -186,11 +186,11 @@ You can run the application in two ways:
 2. Locally
 - Install the required dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 - Start the development server:
   ```bash
-   npm run dev
+   pnpm run dev
    ```
   
 
