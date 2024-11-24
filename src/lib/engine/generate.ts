@@ -3,8 +3,8 @@ import { storageContextFromDefaults } from 'llamaindex/storage/StorageContext';
 import * as dotenv from 'dotenv';
 
 import { getDocuments } from './loader';
-import { initSettings } from './settings';
 import { vectorStore } from './qdrant';
+
 
 // Load environment variables from local .env file
 dotenv.config();
@@ -44,7 +44,6 @@ export async function generateEmbeddings({
 }: {
   userId: string;
 }) {
-  initSettings();
   generateDatasource({
     userId,
   });
