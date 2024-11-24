@@ -4,7 +4,7 @@ import { supabseAuthClient } from '@/lib/supabase/auth';
 import { qdrantClient } from '@/lib/engine/qdrant';
 import { cohereClient } from '@/lib/engine/cohere';
 import appConfig from '@/config/app-config';
-import { Settings } from 'llamaindex';
+import { generateEmbeddingforQuery } from '@/lib/engine/loader';
 
 const { tableName } = appConfig.supabase
 
@@ -17,7 +17,7 @@ export default async function handler(
   res: NextApiResponse<ResponseData>,
 ) {
   try {
-    const { query } = req.query;
+    const { query, openAIApiKey } = req.query;
     let finalChunkText = '';
     const userId = getCookie('user_id', { req, res });
     if (!userId) {
@@ -38,15 +38,17 @@ export default async function handler(
       .eq('user_id', userId)
       .single();
 
-    const { topK, useReranking, rerankingResults } = dt.data?.configs || {
+    const { topK, useReranking, rerankingResults, embeddingInfo } = dt.data?.configs || {
       topK: 2,
       useReranking: true,
       rerankingResults: 1,
+      embeddingInfo: {}
     };
-    const queryEmbedding = await Settings.embedModel.getQueryEmbedding({
-      text: query,
-      type: 'text',
-    });
+    const queryEmbedding = await generateEmbeddingforQuery({
+      query,
+      apiKey: openAIApiKey as string,
+      model: embeddingInfo?.name
+    })
 
     if (!queryEmbedding) {
       return res.status(400).json({

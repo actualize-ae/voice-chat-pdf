@@ -19,6 +19,7 @@ import { RadioCardGroup } from "../ui/radio-card"
 import { useState } from "react"
 import { Badge } from "../ui/badge"
 import { IconBrandOpenai } from "@tabler/icons-react"
+import { generateEmbeddings } from "@/lib/api/utils"
 
 const formSchema = z.object({
     embeddingModel: z.string(),
@@ -26,7 +27,7 @@ const formSchema = z.object({
     topKResults: z.number().positive(),
     embeddingDimension: z.number(),
     chunkSize: z.number(),
-    chnunkOverlap: z.number()
+    chunkOverlap: z.number()
 })
 
 const modelConfigs: {
@@ -53,14 +54,19 @@ export function GenerateEmbeddingsForm() {
             embeddingApiKey: "",
             topKResults: 2,
             chunkSize: 512,
-            chnunkOverlap: 20,
+            chunkOverlap: 20,
             embeddingDimension: 1024
         },
     })
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log('values are', values)
+        generateEmbeddings({
+            ...values,
+            embeddingInfo: {
+                ...modelConfigs[values.embeddingModel]
+            }
+        })
     }
 
     const models: {
@@ -155,7 +161,7 @@ export function GenerateEmbeddingsForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="chnunkOverlap"
+                    name="chunkOverlap"
                     render={({ field }) => (
                         <FormItem>
                             <LabelInputContainer>

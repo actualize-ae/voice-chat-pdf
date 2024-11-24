@@ -144,3 +144,17 @@ export const fetchDocuments = () => {
     }),
   );
 };
+
+export const generateEmbeddings = (payload: Record<string, any>) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/generate-embeddings',
+    body: payload,
+    onSuccess: (data) => {
+      toast.success('Embeddings Generated');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
+};
