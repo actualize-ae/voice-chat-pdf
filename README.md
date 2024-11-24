@@ -161,15 +161,6 @@ Detailed instructions can be found in the [Qdrant Setup Guide](https://doc-talk.
 Add the following environment variables to your `.env` file:
 
 ```bash
-# OpenAI settings
-MODEL_PROVIDER=openai
-MODEL=gpt-4o-mini
-EMBEDDING_MODEL=text-embedding-3-large
-EMBEDDING_DIM=1024
-OPENAI_API_KEY=<openai_api_key>
-
-# Cohere API (optional)
-COHERE_API_KEY=<cohere_api_key>
 
 # Supabase settings
 NEXT_PUBLIC_SUPABASE_BUCKET_NAME=<bucket-name>

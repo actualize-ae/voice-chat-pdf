@@ -94,7 +94,6 @@ export default function PdfUploader() {
       fetchAndSetDocuments()
       setPdfFile(null)
     } catch (error) {
-      console.error('Upload failed:', error);
       toast.error('Upload failed. Please try again.');
     } finally {
       setUploading(false);

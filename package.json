@@ -8,6 +8,7 @@
     "@langchain/community": "^0.3.15",
     "@langchain/core": "^0.3.18",
     "@langchain/openai": "^0.3.14",
+    "@langchain/qdrant": "^0.1.1",
     "@langchain/textsplitters": "^0.1.0",
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
     "@qdrant/js-client-rest": "^1.12.0",

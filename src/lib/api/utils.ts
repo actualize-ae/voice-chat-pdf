@@ -26,7 +26,6 @@ export const callApi = async <Output>({
     });
     if (response.ok) {
       const data = await response.json();
-      console.info('data is', data);
       onSuccess?.(data);
     } else {
       const error = await response.json();

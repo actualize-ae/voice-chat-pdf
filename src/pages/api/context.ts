@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
-import { qdrantClient } from '@/lib/engine/qdrant';
 import { cohereClient } from '@/lib/engine/cohere';
 import appConfig from '@/config/app-config';
 import { generateEmbeddingforQuery } from '@/lib/engine/loader';
+import { searchQueryInQdrant } from '@/lib/engine/qdrant';
 
 const { tableName } = appConfig.supabase
 
@@ -55,16 +55,20 @@ export default async function handler(
         message: 'Failed to get query embedding',
       });
     }
-    const qdrantResponse = await qdrantClient.query(
-      `${userId}_collection`,
+    const qdrantResponse = await searchQueryInQdrant(
       {
-        query: queryEmbedding,
-        limit: topK,
-        with_payload: true,
+        userId,
+        query,
+        openAIApiKey: openAIApiKey as string,
+        topK,
+        embeddingModel: embeddingInfo.name
+
       }
     );
 
-    const documentChunks = qdrantResponse.points.map((chunk) => JSON.parse(chunk.payload?._node_content as string).text);
+    const documentChunks = qdrantResponse.map((doc) => {
+      return doc.pageContent
+    })
 
     if (useReranking) {
       const rerankedDocumentResults = await cohereClient.rerank({

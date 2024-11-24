@@ -3,7 +3,6 @@ import { supabseAuthClient } from '@/lib/supabase/auth';
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { qdrantClient } from './qdrant';
 import { Document } from '@langchain/core/documents';
 
 const { bucketName, tableName } = appConfig.supabase
@@ -27,20 +26,23 @@ export async function getDocuments(userId: string) {
     }),
   );
 
+
   const docsWithLoader = await Promise.all(
     allUserDocs.reduce<{
       content: Blob,
       loader: WebPDFLoader
     }[]>((acc, doc) => {
-      if (!doc) return acc;
+      if (!doc) return [...acc];
       const loader = new WebPDFLoader(doc);
-      return acc.concat({
-        content: doc,
-        loader
-      })
+      return [
+        ...acc,
+        {
+          content: doc,
+          loader
+        }
+      ]
     }, []),
   );
-
   return docsWithLoader
 }
 
@@ -81,57 +83,34 @@ export async function generateEmbeddingforChunks({ documents, apiKey, model }: {
         return generateEmbeddings({ apiKey, model, texts: chunks.map((chunk) => chunk.pageContent) })
       }),
   );
-  return embeddings;
+  return embeddings as number[][][];
 }
 
 export function generateEmbeddingforQuery({ query, apiKey, model }: {
   query: string,
-  apiKey: string, model: string
-}) {
-  return generateEmbeddings({ apiKey, model, texts: [query]})
-}
-
-export async function generateEmbeddings({ apiKey, model, texts }: {
   apiKey: string,
   model: string,
-  texts: string[]
+}) {
+  return generateEmbeddings({ apiKey, model, texts: [query], type: "query" })
+}
+
+export async function generateEmbeddings({ apiKey, model, texts, type = "document" }: {
+  apiKey: string,
+  model: string,
+  texts: string[],
+  type?: "document" | "query"
 }) {
   const embeddings = new OpenAIEmbeddings({
     apiKey,
     model,
+    dimensions: 1024
   });
-  return embeddings.embedDocuments(texts)
-}
-
-export async function storeDocuments({ embeddings, userId, documents }: { documents: { chunks: Document<Record<string, any>>[] }[], embeddings: number[][][], userId: string }) {
-  for (let index in documents) {
-    const documentChunks = documents[index].chunks
-    await storeDocument({ embedding: embeddings[index], userId, documentChunks })
-  }
-}
-
-export async function storeDocument({ embedding, userId, documentChunks }: { documentChunks: Document<Record<string, any>>[], embedding: number[][], userId: string }) {
-  try {
-    // Store in Qdrant
-    await qdrantClient.upsert(userId, {
-      wait: true,
-      points: documentChunks.map((docChunk) => ({
-        id: docChunk.id || crypto.randomUUID(),
-        vector: embedding,
-        payload: {
-          userId: userId,
-          text: docChunk.pageContent,
-          metadata: {
-            ...(docChunk.metadata || {}),
-            timestamp: new Date().toISOString()
-          }
-        }
-      }))
-    })
-
-    return true;
-  } catch (error) {
-    console.error("Error processing document:", error);
-    throw error;
+  switch (type) {
+    case "document":
+      return embeddings.embedDocuments(texts)
+    case "query":
+      return embeddings.embedQuery(texts.at(0) || "")
+    default:
+      return embeddings.embedDocuments(texts)
   }
 }
