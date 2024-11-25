@@ -4,7 +4,6 @@ import { supabseAuthClient } from './supabase/auth';
 import toast from 'react-hot-toast';
 import { nanoid } from 'nanoid';
 import appConfig from '@/config/app-config';
-import { SupabaseClient } from '@supabase/supabase-js';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

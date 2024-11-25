@@ -33,7 +33,7 @@ export default function PdfUploader() {
   const [bucketConfigs, setBucketConfigs] = useState<Record<string, any>>({
     fileSizeLimit: 1024 * 1024 * 10
   })
-  const { isLoading, showLoader, hideLoader, LoaderComponent } = useLoader({ loaderType: 'ripple', className: 'top-[40%] z-[100]' })
+  const { showLoader, hideLoader, LoaderComponent } = useLoader({ loaderType: 'ripple', className: 'top-[40%] z-[100]' })
   const [pageNumber, setPageNumber] = useState(1);
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -101,8 +101,6 @@ export default function PdfUploader() {
     setNumPages(numPages);
     setPageNumber(1);
   };
-
-  console.log('configs are', bucketConfigs)
 
   const handleUpload = async () => {
     if (!pdfFile) return;

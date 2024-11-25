@@ -13,8 +13,6 @@ import { Input } from "@/components/ui/input"
 import ShimmerButton from "../ui/shimmer-button"
 import { LabelInputContainer } from "@/components/labels/LabelContainer"
 import { Label } from "@/components/ui/label"
-import { cn } from "@/lib/utils"
-import WhirlpoolLoader from "../loaders/WhirlpoolLoader"
 
 const formSchema = z.object({
     email: z.string().email({

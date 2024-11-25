@@ -21,7 +21,7 @@ interface UseLoaderReturn {
 export const useLoader = ({ loaderType = 'whirlpool', className = '' }: { loaderType?: LoaderType, className?: string }): UseLoaderReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const showLoader = useCallback((type?: LoaderType) => {
+  const showLoader = useCallback(() => {
     setIsLoading(true);
   }, []);
 
