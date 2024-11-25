@@ -27,6 +27,9 @@ import { Slider } from "../ui/slider"
 import NumberTicker from "../ui/number-ticker"
 import { saveSearchConfigs } from "@/lib/api/utils"
 import toast from "react-hot-toast"
+import { useLoader } from "@/hooks/use-loader"
+import IconCohere from "../logo/Cohere"
+import { useRouter } from "next/router"
 
 const formSchema = z.object({
     "searchType": z.string(),
@@ -35,6 +38,8 @@ const formSchema = z.object({
 
 
 export function SearchConfigurationForm() {
+    const router = useRouter()
+    const { isLoading, showLoader, hideLoader, LoaderComponent } = useLoader({loaderType: "ripple"})
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -45,8 +50,11 @@ export function SearchConfigurationForm() {
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        showLoader()
         await saveSearchConfigs(values)
+        hideLoader()
         toast.success("Settings Saved Successfully!")
+        router.push('/console')
     }
 
     const rerankers: {
@@ -56,7 +64,7 @@ export function SearchConfigurationForm() {
         disabled: boolean
     }[] = [
             {
-                label: "Cohere Reranking",
+                label: "Reranking",
                 value: "cohere-reranking",
                 isComingSoon: true,
                 disabled: true
@@ -64,9 +72,10 @@ export function SearchConfigurationForm() {
         ]
 
     return <Form {...form}>
+        <LoaderComponent />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
 
-
+            
             <FormField
                 control={form.control}
                 name="searchType"
@@ -125,7 +134,7 @@ export function SearchConfigurationForm() {
                                 <div>
                                     {rerank.isComingSoon ? (
                                         <div className="flex items-center gap-2">
-                                            <IconBrandOpenai />
+                                            <IconCohere />
                                             <span className="leading-6">{rerank.label}</span>
                                             <Badge variant="neutral">Coming Soon</Badge>
                                         </div>
@@ -150,7 +159,8 @@ export function SearchConfigurationForm() {
                 background="#059669"
                 borderRadius='10px'
                 shimmerSize="3px"
-                className="w-full shadow-2xl font-bold"
+                className="w-full shadow-2xl font-bold disabled:opacity-[0.8] disabled:cursor-not-allowed"
+                disabled={isLoading}
             >
                 Save Search Configurations
             </ShimmerButton>

@@ -18,6 +18,7 @@ import { RadioCardGroup } from "../ui/radio-card"
 import { Badge } from "../ui/badge"
 import { IconBrandOpenai } from "@tabler/icons-react"
 import { generateEmbeddings } from "@/lib/api/utils"
+import { useLoader } from "@/hooks/use-loader"
 
 const formSchema = z.object({
     embeddingModel: z.string(),
@@ -44,11 +45,13 @@ const modelConfigs: {
 }
 
 export function GenerateEmbeddingsForm() {
+    const { isLoading, showLoader, hideLoader, LoaderComponent } = useLoader({
+        loaderType: "ripple"
+    })
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             embeddingModel: "gpt-4o-mini-text-large",
-            embeddingApiKey: "",
             chunkSize: 512,
             chunkOverlap: 20,
             embeddingDimension: 1024
@@ -56,14 +59,16 @@ export function GenerateEmbeddingsForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        generateEmbeddings({
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        showLoader()
+        await generateEmbeddings({
             ...values,
             apiKey: values.embeddingApiKey,
             embeddingInfo: {
                 ...modelConfigs[values.embeddingModel]
             }
         })
+        hideLoader()
     }
 
     const models: {
@@ -84,6 +89,7 @@ export function GenerateEmbeddingsForm() {
         ]
 
     return <Form {...form}>
+        <LoaderComponent />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
             <fieldset className="space-y-3 mt-8">
                 <Label htmlFor="database" className="font-medium">
@@ -194,7 +200,8 @@ export function GenerateEmbeddingsForm() {
                 background="#059669"
                 borderRadius='10px'
                 shimmerSize="3px"
-                className="w-full shadow-2xl font-bold"
+                className="w-full shadow-2xl font-bold disabled:opacity-[0.8] disabled:cursor-not-allowed"
+                disabled={isLoading}
             >
                 Generate Embeddings
             </ShimmerButton>

@@ -28,13 +28,14 @@ const formSchema = z.object({
 });
 
 interface SignUpFormProps {
+    isLoading: boolean;
     handleSignup: ({ email, password }: {
         email: string;
         password: string;
     }) => Promise<void>
 }
 
-export function SignupForm({ handleSignup }: SignUpFormProps) {
+export function SignupForm({ handleSignup, isLoading }: SignUpFormProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -105,7 +106,8 @@ export function SignupForm({ handleSignup }: SignUpFormProps) {
                 background="#059669"
                 borderRadius='10px'
                 shimmerSize="3px"
-                className="w-full shadow-2xl font-bold"
+                className="w-full shadow-2xl font-bold disabled:opacity-[0.7] disabled:cursor-not-allowed"
+                disabled={isLoading}
             >
                 Sign Up
             </ShimmerButton>

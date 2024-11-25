@@ -9,19 +9,24 @@ import WordPullUp from "@/components/ui/word-pull-up";
 import { cn } from '@/lib/utils';
 import DotPattern from '@/components/ui/dot-pattern';
 import { SignInForm } from '@/components/forms/SignIn';
+import { useLoader } from '@/hooks/use-loader';
 
 export default function SignInPage() {
   const router = useRouter();
+  const { isLoading, showLoader, hideLoader, LoaderComponent } = useLoader({loaderType: 'ripple'})
 
   const handleSignIn = async ({ email, password }: { email: string, password: string }) => {
+    showLoader()
     await loginWithEmailPassword({
       email,
       password,
     });
+    hideLoader()
     router.push('/');
   };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
+      <LoaderComponent />
       <Toaster position="top-right" reverseOrder={false} />
       <DotPattern
         className={cn(
@@ -40,7 +45,7 @@ export default function SignInPage() {
           className="text-2xl font-bold tracking-[-0.02em] italic text-[#0EA5E9] dark:text-white md:leading-[5rem]"
           words="Sign in to talk 💬 to your docs"
         />
-        <SignInForm handleSignIn={handleSignIn} />
+        <SignInForm isLoading={isLoading} handleSignIn={handleSignIn} />
         <p className="mt-6 text-center text-sm text-gray-600">
           Don &apos;t have an account?{' '}
           <Link href="/signup" className="text-rose-500 hover:underline">

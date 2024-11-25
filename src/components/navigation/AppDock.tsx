@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, MailIcon } from "lucide-react";
+import { CalendarIcon, MailIcon, MicIcon } from "lucide-react";
 import { LogOut, Upload } from "react-feather";
 
 import { cn } from "@/lib/utils";
@@ -13,7 +13,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { MagicWandIcon } from "@radix-ui/react-icons";
 import { signOut } from "@/lib/api/utils";
 import router from "next/router";
 
@@ -66,7 +65,7 @@ const Icons = {
 const DATA = {
   navbar: [
     { href: "/upload", icon: Upload, label: "Upload Documents" },
-    { href: "/console", icon: MagicWandIcon, label: "Talk to documents" },
+    { href: "/console", icon: MicIcon, label: "Talk to documents" },
   ],
   contact: {
     social: {

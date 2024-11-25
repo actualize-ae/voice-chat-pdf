@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input"
 import ShimmerButton from "../ui/shimmer-button"
 import { LabelInputContainer } from "@/components/labels/LabelContainer"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
+import WhirlpoolLoader from "../loaders/WhirlpoolLoader"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -24,13 +26,14 @@ const formSchema = z.object({
 })
 
 interface SignInFormProps {
+    isLoading: boolean;
     handleSignIn: ({ email, password }: {
         email: string;
         password: string;
     }) => Promise<void>
 }
 
-export function SignInForm({ handleSignIn }: SignInFormProps) {
+export function SignInForm({ handleSignIn, isLoading }: SignInFormProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -83,7 +86,8 @@ export function SignInForm({ handleSignIn }: SignInFormProps) {
                 background="#059669"
                 borderRadius='10px'
                 shimmerSize="3px"
-                className="w-full shadow-2xl font-bold"
+                className="w-full shadow-2xl font-bold disabled:opacity-[0.7] disabled:cursor-not-allowed"
+                disabled={isLoading}
             >
                 Log in
             </ShimmerButton>

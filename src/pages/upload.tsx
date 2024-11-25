@@ -4,7 +4,7 @@ import { AppDock } from '@/components/navigation/AppDock';
 import { DotPattern } from '@/components/ui/dot-pattern';
 import ShineBorder from '@/components/ui/shine-border';
 import { fetchDocuments, linkDocuments, unlinkDocuments } from '@/lib/api/utils';
-import { cn, uploadFile } from '@/lib/utils';
+import { cn, getBucketData, uploadFile } from '@/lib/utils';
 import { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast, { Toaster } from 'react-hot-toast';
@@ -21,6 +21,7 @@ import appConfig from '@/config/app-config';
 import Stepper from '@/components/forms/Stepper';
 import { GenerateEmbeddingsForm } from '@/components/forms/GenerateEmbeddings';
 import { SearchConfigurationForm } from '@/components/forms/SearchConfiguration';
+import { useLoader } from '@/hooks/use-loader';
 
 // Configure pdfjs worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -29,6 +30,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 export default function PdfUploader() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
+  const [bucketConfigs, setBucketConfigs] = useState<Record<string, any>>({
+    fileSizeLimit: 1024 * 1024 * 10
+  })
+  const { isLoading, showLoader, hideLoader, LoaderComponent } = useLoader({ loaderType: 'ripple', className: 'top-[40%] z-[100]' })
   const [pageNumber, setPageNumber] = useState(1);
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -49,12 +54,9 @@ export default function PdfUploader() {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
-    if (file && file.type === 'application/pdf') {
-      setPdfFile(file);
-      setUploadSuccess(false);
-    } else {
-      alert('Please upload a PDF file');
-    }
+    setPdfFile(file);
+    setUploadSuccess(false);
+
   }, []);
 
   async function fetchAndSetDocuments() {
@@ -65,16 +67,34 @@ export default function PdfUploader() {
       console.error("Error while fetching docs is", e)
       toast.error("Something went wrong while fetching documents, please refresh the page")
     }
+  }
 
+  async function fetchBucketConfigs() {
+    try {
+      const bucketData = await getBucketData()
+      setBucketConfigs({
+        fileSizeLimit: bucketData.file_size_limit
+      });
+    } catch (e) {
+      console.error("Error while fetching bucket is", e)
+      toast.error("Something went wrong while fetching bucket configs, please refresh the page")
+    }
   }
 
   useEffect(() => {
     fetchAndSetDocuments()
+    fetchBucketConfigs()
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'application/pdf': ['.pdf'] },
     multiple: false,
+    maxSize: bucketConfigs.fileSizeLimit,
+    onDropRejected(fileRejections) {
+     const rejection = fileRejections.at(0)
+     const errors = rejection?.errors.at(0)
+     toast.error(errors?.message || "Something wrong with file")
+    },
   });
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
@@ -82,10 +102,13 @@ export default function PdfUploader() {
     setPageNumber(1);
   };
 
+  console.log('configs are', bucketConfigs)
+
   const handleUpload = async () => {
     if (!pdfFile) return;
 
     setUploading(true);
+    showLoader()
     try {
       const { fullPath } = await uploadFile(pdfFile);
       await linkDocuments(fullPath);
@@ -98,6 +121,7 @@ export default function PdfUploader() {
       toast.error('Upload failed. Please try again.');
     } finally {
       setUploading(false);
+      hideLoader()
     }
   };
 
@@ -106,6 +130,7 @@ export default function PdfUploader() {
     <>
       <div className="flex justify-center py-12 px-4 sm:px-6 lg:px-8">
         <AppDock />
+        <LoaderComponent />
         <Toaster position="top-right" reverseOrder={false} />
         <DotPattern
           className={cn(
@@ -249,18 +274,20 @@ export default function PdfUploader() {
           {
             label: 'Generate Embeddings',
             content: <ShineBorder
-            className="relative p-8 flex w-[60%] ml-[20%] h-[65vh] flex-col items-center justify-center overflow-scroll rounded-lg border-2 bg-white md:shadow-2xl"
-            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-          >
-            <GenerateEmbeddingsForm />
-          </ShineBorder>
+              className="relative p-8 flex w-[60%] ml-[20%] h-[65vh] flex-col items-center justify-center overflow-scroll rounded-lg border-2 bg-white md:shadow-2xl"
+              color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+            >
+              <GenerateEmbeddingsForm />
+            </ShineBorder>
           },
-          { label: 'Configure Search Parameters', content:  <ShineBorder
-            className="relative p-8 flex w-[60%] ml-[20%] h-[65vh] flex-col items-center justify-center overflow-scroll rounded-lg border-2 bg-white md:shadow-2xl"
-            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-          >
-            <SearchConfigurationForm />
-          </ShineBorder> },
+          {
+            label: 'Configure Search Parameters', content: <ShineBorder
+              className="relative p-8 flex w-[60%] ml-[20%] h-[65vh] flex-col items-center justify-center overflow-scroll rounded-lg border-2 bg-white md:shadow-2xl"
+              color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+            >
+              <SearchConfigurationForm />
+            </ShineBorder>
+          },
         ]} />
 
 
