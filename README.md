@@ -1,5 +1,11 @@
 <div align="center">
-[![Watch the voice chat sdk poc](https://vumbnail.com/1038220898.jpg)](https://vimeo.com/1038220898)
+
+
+
+https://github.com/user-attachments/assets/225f475e-be9f-4d81-b7bb-938b30e6aa9d
+
+
+
 <br><br>
 <a title="Hits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
     <img src="https://hits.b3log.org/actualize-ae/voice-chat-pdf.svg">
