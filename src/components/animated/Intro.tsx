@@ -40,7 +40,7 @@ export function Intro() {
             ),
         },
         {
-            title: <Link href="/embeddings" className="text-[#A855F7]">Generate Embeddings</Link>,
+            title: <h1 className="text-[#A855F7]">Generate Embeddings</h1>,
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-lg font-normal mb-8">
@@ -65,7 +65,7 @@ export function Intro() {
             ),
         },
         {
-            title: <Link href="/" className="text-[#A855F7]">Save your search configs</Link>,
+            title: <h1 className="text-[#A855F7]">Save your search configs</h1>,
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-lg font-normal mb-4">
@@ -86,7 +86,7 @@ export function Intro() {
             ),
         },
         {
-            title: <h1 className="text-[#A855F7]">Speak to your documents in playground</h1>,
+            title: <Link href="/console" className="text-[#A855F7]">Speak to your documents in playground</Link>,
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-lg font-normal mb-4">
