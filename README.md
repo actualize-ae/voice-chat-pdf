@@ -1,5 +1,5 @@
 <div align="center">
-<video controls autoplay>
+<video controls height="500" muted="" loop="" autoplay="">
   <source src="images/voice.mp4" type="video/mp4">
 </video>
 <br><br>
