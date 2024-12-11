@@ -5,20 +5,20 @@
 <br><br>
 <br>
 <a title="Hits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
-    <img src="https://hits.b3log.org/noohfaisal/voice-chat-pdf.svg">
+    <img src="https://hits.b3log.org/actualize-ae/voice-chat-pdf.svg">
 </a>
 <a title="Code Size" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
-    <img src="https://img.shields.io/github/languages/code-size/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=yellow">
+    <img src="https://img.shields.io/github/languages/code-size/actualize-ae/voice-chat-pdf.svg?style=flat-square&color=yellow">
 </a>
 <a title="GitHub Pull Requests" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/pulls">
-    <img src="https://img.shields.io/github/issues-pr-closed/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=FF9966">
+    <img src="https://img.shields.io/github/issues-pr-closed/actualize-ae/voice-chat-pdf.svg?style=flat-square&color=FF9966">
 </a>
 <br>
 <a title="GitHub Commits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/commits/master">
-    <img src="https://img.shields.io/github/commit-activity/m/noohfaisal/voice-chat-pdf.svg?style=flat-square">
+    <img src="https://img.shields.io/github/commit-activity/m/actualize-ae/voice-chat-pdf.svg?style=flat-square">
 </a>
 <a title="Last Commit" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/master">
-    <img src="https://img.shields.io/github/last-commit/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=FF9900">
+    <img src="https://img.shields.io/github/last-commit/actualize-ae/voice-chat-pdf.svg?style=flat-square&color=FF9900">
 </a>
 
 ## Table of Contents
