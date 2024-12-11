@@ -3,23 +3,21 @@
 <br>
 <em>DocTalk: Where Your Voice Brings Documents to Life</em>
 <br><br>
-<a title="Releases" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf/releases"><img src="https://img.shields.io/github/release/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=9CF"></a>
-<a title="Downloads" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf/releases"><img src="https://img.shields.io/github/downloads/noohfaisal/voice-chat-pdf/total.svg?style=flat-square&color=blueviolet"></a>
 <br>
-<a title="Hits" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf">
+<a title="Hits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
     <img src="https://hits.b3log.org/noohfaisal/voice-chat-pdf.svg">
 </a>
-<a title="Code Size" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf">
+<a title="Code Size" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
     <img src="https://img.shields.io/github/languages/code-size/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=yellow">
 </a>
-<a title="GitHub Pull Requests" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf/pulls">
+<a title="GitHub Pull Requests" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/pulls">
     <img src="https://img.shields.io/github/issues-pr-closed/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=FF9966">
 </a>
 <br>
-<a title="GitHub Commits" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf/commits/master">
+<a title="GitHub Commits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/commits/master">
     <img src="https://img.shields.io/github/commit-activity/m/noohfaisal/voice-chat-pdf.svg?style=flat-square">
 </a>
-<a title="Last Commit" target="_blank" href="https://github.com/noohfaisal/voice-chat-pdf/commits/master">
+<a title="Last Commit" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/master">
     <img src="https://img.shields.io/github/last-commit/noohfaisal/voice-chat-pdf.svg?style=flat-square&color=FF9900">
 </a>
 
@@ -35,17 +33,15 @@
 * [🛠️ Setup Guide](#%EF%B8%8F-setup-guide)
 
 
-This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/)
+
 
 ## Voice Chat with PDFs
 
-This is a an example based on the [openai/openai-realtime-console](https://github.com/openai/openai-realtime-console),
-extending it with a simple RAG system using [LlamaIndexTS](https://ts.llamaindex.ai).
+Voice Chat with PDFs is an open-source extension of [run-llama/voice-chat-pdf](https://github.com/run-llama/voice-chat-pdf), integrating advanced features like a Retrieval-Augmented Generation (RAG) pipeline with Supabase, Qdrant, Cohere, and OpenAI Realtime API for enhanced document interaction.
 
 ## Prerequisites
 
-The project requires an OpenAI API key (**user key** or **project key**) that has access to the
-Realtime API. Set the key in the `.env` file or as an environment variable `OPENAI_API_KEY`.
+The project requires an OpenAI API key (**user key** or **project key**) that has access to the Realtime API.
 
 ## 🔮 Features
 
