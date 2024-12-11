@@ -1,7 +1,5 @@
 <div align="center">
-<video controls height="500" muted="" loop="" autoplay="">
-  <source src="https://vimeo.com/1038220898" type="video/mp4">
-</video>
+[![Watch the voice chat sdk poc](https://vumbnail.com/1038220898.jpg)](https://vimeo.com/1038220898)
 <br><br>
 <a title="Hits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
     <img src="https://hits.b3log.org/actualize-ae/voice-chat-pdf.svg">
