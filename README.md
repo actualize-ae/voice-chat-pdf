@@ -1,9 +1,8 @@
-<p align="center">
-<img alt="DocTalk" src="images/Sample_logo.png" width="300" height="300">
-<br>
-<em>DocTalk: Where Your Voice Brings Documents to Life</em>
+<div align="center">
+<video controls autoplay>
+  <source src="images/voice.mp4" type="video/mp4">
+</video>
 <br><br>
-<br>
 <a title="Hits" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf">
     <img src="https://hits.b3log.org/actualize-ae/voice-chat-pdf.svg">
 </a>
@@ -20,6 +19,7 @@
 <a title="Last Commit" target="_blank" href="https://github.com/actualize-ae/voice-chat-pdf/master">
     <img src="https://img.shields.io/github/last-commit/actualize-ae/voice-chat-pdf.svg?style=flat-square&color=FF9900">
 </a>
+</div>
 
 ## Table of Contents
 
@@ -120,10 +120,6 @@ Our goal is to continuously enhance the interaction experience between the user 
 ### Document Upload Responsibility
 When uploading documents, users should be aware that the responsibility of the content lies entirely with them. Please exercise caution while uploading sensitive or confidential documents. Ensure that you have the necessary permissions to share and process the document before interacting with this platform.
 
-### Forked Repository
-This project is a forked version of the [run-llama/voice-chat-pdf](https://github.com/run-llama/voice-chat-pdf). While the functionality may differ, the usage policies, terms, and conditions from the original repository still apply. Please refer to the [original repository's documentation](https://github.com/run-llama/voice-chat-pdf) for more details regarding usage policies and guidelines.
-
-
 ## 🛠️ Setup Guide
 
 This project supports deployment through **Vercel** and running the application locally. It uses Supabase for authentication and database storage, and Qdrant for vector storage. Follow these steps for a seamless setup:
@@ -156,8 +152,7 @@ Detailed instructions can be found in the [Qdrant Setup Guide](https://doc-talk.
 
 Add the following environment variables to your `.env` file:
 
-```bash
-
+```bash 
 # Supabase settings
 NEXT_PUBLIC_SUPABASE_BUCKET_NAME=<bucket-name>
 NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT=<file-size>
@@ -189,4 +184,11 @@ You can run the application in two ways:
    pnpm run dev
    ```
   
+## ❓ Facing Issues or Have Suggestions?
+
+If you encounter any problems while running or using **DocTalk** or have suggestions for improvements, we encourage you to utilize our templates to streamline communication:
+
+- 🐞 **[Bug Report](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=bug_report.md)**: Found a bug? Help us fix it by providing detailed information using our bug report template.
+- 🌟 **[Feature Request](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=feature_request.md)**: Have an idea for a new feature? Share your thoughts using our feature request template.
+- ❓ **[General Queries](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=general_query.md)**: Have a question or need help? Submit your query using our query template.
 
