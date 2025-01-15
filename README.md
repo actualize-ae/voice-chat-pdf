@@ -199,5 +199,6 @@ If you encounter any problems while running or using **DocTalk** or have suggest
 - ❓ **[General Queries](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=general_query.md)**: Have a question or need help? Submit your query using our query template.
 
 ## Star History
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=#actualize-ae/voice-chat-pdf&Date" frameBorder="0"></iframe>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=actualize-ae/voice-chat-pdf&type=Date)](https://star-history.com/#actualize-ae/voice-chat-pdf&Date)
 
