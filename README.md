@@ -198,3 +198,6 @@ If you encounter any problems while running or using **DocTalk** or have suggest
 - 🌟 **[Feature Request](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=feature_request.md)**: Have an idea for a new feature? Share your thoughts using our feature request template.
 - ❓ **[General Queries](https://github.com/actualize-ae/voice-chat-pdf/issues/new?template=general_query.md)**: Have a question or need help? Submit your query using our query template.
 
+## Star History
+<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=#actualize-ae/voice-chat-pdf&Date" frameBorder="0"></iframe>
+
