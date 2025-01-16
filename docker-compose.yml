@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    secrets:
+      - QDRANT_URL
+      - QDRANT_API_KEY
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY
+      - NEXT_PUBLIC_SUPABASE_BUCKET_NAME
+      - NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT
+      - NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES
+      - NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME
+    environment:
+      NODE_ENV: production
+      QDRANT_URL: /run/secrets/QDRANT_URL
+      QDRANT_API_KEY: /run/secrets/QDRANT_API_KEY
+      NEXT_PUBLIC_SUPABASE_URL: /run/secrets/next_public_supabase_url
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: /run/secrets/next_public_supabase_anon_key
+      NEXT_PUBLIC_SUPABASE_BUCKET_NAME: /run/secrets/next_public_supabase_bucket_name
+      NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT: /run/secrets/next_public_supabase_bucket_file_size_limit
+      NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES: /run/secrets/next_public_supabase_bucket_allowed_mime_types
+      NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME: /run/secrets/next_public_supabase_user_table_name
+    command: >
+      sh -c "export QDRANT_URL=$(cat /run/secrets/QDRANT_URL)
+      && export QDRANT_API_KEY=$(cat /run/secrets/QDRANT_API_KEY)
+      && export NEXT_PUBLIC_SUPABASE_URL=$(cat /run/secrets/next_public_supabase_url)
+      && export NEXT_PUBLIC_SUPABASE_ANON_KEY=$(cat /run/secrets/next_public_supabase_anon_key)
+      && export NEXT_PUBLIC_SUPABASE_BUCKET_NAME=$(cat /run/secrets/next_public_supabase_bucket_name)
+      && export NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT=$(cat /run/secrets/next_public_supabase_bucket_file_size_limit)
+      && export NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES=$(cat /run/secrets/next_public_supabase_bucket_allowed_mime_types)
+      && export NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME=$(cat /run/secrets/next_public_supabase_user_table_name)
+      && npm start"
+
+secrets:
+  QDRANT_URL:
+    file: ./secrets/QDRANT_URL
+  QDRANT_API_KEY:
+    file: ./secrets/QDRANT_API_KEY
+  NEXT_PUBLIC_SUPABASE_URL:
+    file: ./secrets/next_public_supabase_url
+  NEXT_PUBLIC_SUPABASE_ANON_KEY:
+    file: ./secrets/next_public_supabase_anon_key
+  NEXT_PUBLIC_SUPABASE_BUCKET_NAME:
+    file: ./secrets/next_public_supabase_bucket_name
+  NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT:
+    file: ./secrets/next_public_supabase_bucket_file_size_limit
+  NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES:
+    file: ./secrets/next_public_supabase_bucket_allowed_mime_types
+  NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME:
+    file: ./secrets/next_public_supabase_user_table_name
