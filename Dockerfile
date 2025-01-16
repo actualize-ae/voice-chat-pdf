@@ -1,4 +1,4 @@
-# Use the official Node.js 18 LTS image as the base image
+# Use the official Node.js 22 LTS image as the base image
 FROM node:22-alpine AS base
 
 # Set the working directory
@@ -35,7 +35,18 @@ COPY --from=base /app/node_modules /app/node_modules
 COPY --from=base /app/package.json /app/package.json
 
 # Secrets will be mounted at runtime
-ENTRYPOINT ["/bin/sh", "-c", "export NEXT_PUBLIC_SUPABASE_URL=$(cat /run/secrets/next_public_supabase_url) && export NEXT_PUBLIC_SUPABASE_ANON_KEY=$(cat /run/secrets/next_public_supabase_anon_key) && npm start"]
+
+ENTRYPOINT ["/bin/sh", "-c", "\
+  export QDRANT_URL=$(cat /run/secrets/QDRANT_URL) && \
+  export QDRANT_API_KEY=$(cat /run/secrets/QDRANT_API_KEY) && \
+  export NEXT_PUBLIC_SUPABASE_URL=$(cat /run/secrets/next_public_supabase_url) && \
+  export NEXT_PUBLIC_SUPABASE_ANON_KEY=$(cat /run/secrets/next_public_supabase_anon_key) && \
+  export NEXT_PUBLIC_SUPABASE_BUCKET_NAME=$(cat /run/secrets/next_public_supabase_bucket_name) && \
+  export NEXT_PUBLIC_SUPABASE_BUCKET_FILE_SIZE_LIMIT=$(cat /run/secrets/next_public_supabase_bucket_file_size_limit) && \
+  export NEXT_PUBLIC_SUPABASE_BUCKET_ALLOWED_MIME_TYPES=$(cat /run/secrets/next_public_supabase_bucket_allowed_mime_types) && \
+  export NEXT_PUBLIC_SUPABASE_USER_TABLE_NAME=$(cat /run/secrets/next_public_supabase_user_table_name) && \
+  npm start"]
+
 
 # Expose the application port
 EXPOSE 3000

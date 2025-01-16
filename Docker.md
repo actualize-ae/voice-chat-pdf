@@ -16,7 +16,7 @@ This document explains how to run the application using the `Dockerfile`, manage
 ### 1. Build the Docker Image
 Run the following command to build the Docker image but ensure the Dockerfile exists in the path where you run the command below:
 ```bash
-docker build--no-cache -t  my-nextjs-app .
+docker build --no-cache -t  my-nextjs-app .
 ```
 
 ### 2. Create the `secrets/` Directory
