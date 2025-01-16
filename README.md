@@ -31,13 +31,15 @@ https://github.com/user-attachments/assets/d3c837de-7526-4e4c-9a2e-ada5a490374d
 
 * [📄 Voice Chat with PDFs](#voice-chat-with-pdfs)
 * [⚙️ Prerequisites](#prerequisites)
-* [🔮 Features](#-features)
-* [🏗️ Architecture](#%EF%B8%8F-architecture)
-* [🔑 OpenAI API Key](#-openai-api-key)
-* [🚀 Performance Improvements](#-performance-improvements)
-* [⚠️ Important Notices](#%EF%B8%8F-important-notices)
-* [🛠️ Setup Guide](#%EF%B8%8F-setup-guide)
-* [❓ Facing Issues or Have Suggestions?](#-facing-issues-or-have-suggestions)
+* [🔮 Features](#features)
+* [🏗️ Architecture](#architecture)
+* [🔑 OpenAI API Key](#openai-api-key)
+* [🚀 Performance Improvements](#performance-improvements)
+* [⚠️ Important Notices](#important-notices)
+* [🛠️ Setup Guide](#setup-guide)
+* [🐳 Docker Instructions](#docker-instructions)
+* [❓ Facing Issues or Have Suggestions?](#facing-issues-or-have-suggestions)
+
 
 
 
@@ -189,7 +191,11 @@ You can run the application in two ways:
   ```bash
    pnpm run dev
    ```
-  
+
+## Docker Instructions
+
+To run the application in Docker, refer to [Docker Instructions](Docker.md)
+
 ## ❓ Facing Issues or Have Suggestions?
 
 If you encounter any problems while running or using **DocTalk** or have suggestions for improvements, we encourage you to utilize our templates to streamline communication:
